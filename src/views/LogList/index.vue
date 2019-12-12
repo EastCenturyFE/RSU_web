@@ -1,5 +1,12 @@
 <template>
   <div id="log-list">
+    <div>
+      本页面为列表页
+      <br />
+      <br />
+      <br />
+    </div>
+
     <el-tabs type="border-card" @tab-click="handleClick">
       <el-tab-pane label="系统日志" name="log"></el-tab-pane>
       <el-tab-pane label="RSU信息日志" name="rsu"></el-tab-pane>
@@ -75,8 +82,7 @@ export default {
       console.log(tab.name)
     },
   },
-  created () {
-  },
+  created () {},
 }
 </script>
 
