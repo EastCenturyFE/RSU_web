@@ -39,7 +39,7 @@ const routes = [
         },
       },
       {
-        path: '/Monitor',
+        path: '/monitor',
         component: Monitor,
         meta: {
           name: '统一监控',

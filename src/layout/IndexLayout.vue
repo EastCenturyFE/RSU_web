@@ -1,3 +1,10 @@
+<!--
+ * @Description:
+ * @Author: YOYO 792611446@qq.com
+ * @Date: 2019-12-12 16:14:51
+ * @LastEditors: YOYO 792611446@qq.com
+ * @LastEditTime: 2019-12-12 22:00:57
+ -->
 <template>
   <div id="index-layout">
       <TheHead />
@@ -27,7 +34,7 @@ export default {
   background-image: linear-gradient(-45deg, #011c4c, #001c4d);
   overflow: auto;
   .contain{
-    padding: 20px 60px;
+    padding: 20px 40px;
   }
 }
 </style>
