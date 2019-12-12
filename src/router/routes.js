@@ -1,10 +1,10 @@
-import { pages } from '@/config';
+import { pages } from '@/config'
 
 import {
   initRoutesMeta,
   getNavMenuConfig,
   downToUpReduceMetaAuthority,
-} from '@/utils/router';
+} from '@/utils/router'
 
 const HomeLayout = () =>
   import(/* webpackChunkName: "home" */ '@/layout/HomeLayout.vue')

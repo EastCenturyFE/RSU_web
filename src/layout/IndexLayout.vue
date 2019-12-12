@@ -1,7 +1,9 @@
 <template>
   <div id="index-layout">
       <TheHead />
-      <router-view></router-view>
+      <div class='contain'>
+        <router-view></router-view>
+      </div>
   </div>
 </template>
 
@@ -23,5 +25,9 @@ export default {
   min-height: 500px;
   height: 100vh;
   background-image: linear-gradient(-45deg, #011c4c, #001c4d);
+  overflow: auto;
+  .contain{
+    padding: 20px 60px;
+  }
 }
 </style>
