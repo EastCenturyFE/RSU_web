@@ -21,6 +21,7 @@ export default {
   width: 100%;
   min-width: 1100px;
   min-height: 500px;
+  height: 100vh;
   background-image: linear-gradient(-45deg, #011c4c, #001c4d);
 }
 </style>
