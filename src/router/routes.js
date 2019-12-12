@@ -6,8 +6,8 @@ import {
   downToUpReduceMetaAuthority,
 } from '@/utils/router'
 
-const HomeLayout = () =>
-  import(/* webpackChunkName: "home" */ '@/layout/HomeLayout.vue')
+// const HomeLayout = () =>
+//   import(/* webpackChunkName: "home" */ '@/layout/HomeLayout.vue')
 const HomePage = () =>
   import(/* webpackChunkName: "home" */ '@/views/HomePage')
 
@@ -23,12 +23,13 @@ const Monitor = () =>
 
 const routes = [
   {
-    path: '/index',
+    path: '/',
     component: IndexLayout,
     meta: { hideInMenu: true },
+    redirect: '/index',
     children: [
       {
-        path: '',
+        path: '/index',
         name: 'loglist',
         component: LogList,
         meta: {
@@ -37,19 +38,21 @@ const routes = [
           authority: false,
         },
       },
-    ],
-  },
-
-  {
-    path: '/home',
-    component: IndexLayout,
-    meta: { hideInMenu: false },
-    children: [
       {
-        path: '',
+        path: '/Monitor',
+        component: Monitor,
+        meta: {
+          name: '统一监控',
+          title: '统一监控',
+          icon: 'uniteMonitor',
+          authority: false,
+        },
+      },
+      {
+        path: '/home',
+        component: HomePage,
         alias: pages.home.name,
         name: pages.home.name,
-        component: HomePage,
         meta: {
           name: '首页',
           title: '首页',
@@ -59,54 +62,11 @@ const routes = [
       },
     ],
   },
-  {
-    path: '/Monitor',
-    component: HomeLayout,
-    meta: { hideInMenu: false },
-    children: [
-      {
-        path: '',
-        name: 'IndexLayout',
-        component: Monitor,
-        meta: {
-          name: '统一监控',
-          title: '统一监控',
-          icon: 'uniteMonitor',
-          authority: false,
-        },
-      },
-    ],
-  },
   // {
-  //   path: 'outsideLink',
-  //   meta: {
-  //     name: '实时定位',
-  //     icon: 'realTimePositioning',
-  //     path: 'http://www.baidu.com',
-  //   },
+  //   path: '/',
+  //   redirect: 'index',
+  //   meta: { hideInMenu: true },
   // },
-  // {
-  //   path: 'dataVisualization',
-  //   meta: {
-  //     name: '数据可视化',
-  //     icon: 'dataVisualization',
-  //     path: 'http://www.baidu.com',
-  //   },
-  // },
-  // {
-  //   path: pages.login.path,
-  //   name: pages.login.name,
-  //   component: LoginPage,
-  //   meta: {
-  //     title: '登录页面',
-  //     hideInMenu: true,
-  //   },
-  // },
-  {
-    path: '/',
-    redirect: 'index',
-    meta: { hideInMenu: true },
-  },
   // {
   //   path: '/403',
   //   component: NoPermission,
