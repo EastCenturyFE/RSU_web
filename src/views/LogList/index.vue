@@ -1,11 +1,5 @@
 <template>
   <div id="log-list">
-    <div>
-      本页面为列表页
-      <br />
-      <br />
-      <br />
-    </div>
 
     <div class='tabs-list'>
       <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
@@ -237,6 +231,9 @@ export default {
   }
 
   .table-list {
+    border-right: 1px solid #0d2a95;
+    border-left: 1px solid #0d2a95;
+
     .el-table th,
     .el-table tr {
       background-color: transparent;
@@ -263,9 +260,8 @@ export default {
     .searchs{
       height: 100px;
         // border: 1px solid red;
-        padding: 10px 0;
+        padding: 10px;
       .search-time{
-        float: right;
         .searchTime-box{
           margin-bottom: 10px;
         }
