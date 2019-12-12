@@ -30,14 +30,15 @@
               end-placeholder="结束日期">
             </el-date-picker>
           </div>
-          <p> 日志条数：<span>5500000</span>条</p>
-          <p> 查询时间：<span>1.5</span>s</p>
+          <div class='time-right'>
+            日志条数：<span>5500000</span>条 &nbsp;&nbsp;&nbsp;查询时间：<span>1.5</span>s
+          </div>
         </div>
       </div>
       <el-table :data="tableData" style="width: 100%" stripe>
-        <el-table-column prop="rsuId" label="rsu标识" width="180">
+        <el-table-column prop="rsuId" label="rsu标识" width="80">
         </el-table-column>
-        <el-table-column prop="roadId" label="门架标识" width="180">
+        <el-table-column prop="roadId" label="门架标识" width="80">
         </el-table-column>
         <el-table-column prop="doorFrame" label="桩号"> </el-table-column>
         <el-table-column prop="sysName" label="系统名称"> </el-table-column>
@@ -60,7 +61,7 @@ export default {
     return {
       activeName: 'log',
       search: '',
-      dataTime: [new Date(2000, 10, 10, 10, 10), new Date(2000, 10, 11, 10, 10)],
+      dataTime: ['', ''],
       tableData: [
         {
           rsuId: '01',
@@ -258,17 +259,17 @@ export default {
       border-bottom: 1px solid #0d2a95;
     }
     .searchs{
-      height: 100px;
-        // border: 1px solid red;
-        padding: 10px;
+      padding: 15px;
       .search-time{
+        float: right;
         .searchTime-box{
-          margin-bottom: 10px;
+          margin-bottom: 20px;
         }
-        p{
-          font-size: 14px;
+        .time-right{
+          font-size: 12px;
           color: #C0C4CC;
-          margin-bottom: 10px;
+          margin: 10px 0;
+          text-align: right;
           span{
             font-size: 16px;
           }
