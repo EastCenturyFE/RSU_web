@@ -51,8 +51,6 @@ const routes = [
       {
         path: '/home',
         component: HomePage,
-        alias: pages.home.name,
-        name: pages.home.name,
         meta: {
           name: '首页',
           title: '首页',
