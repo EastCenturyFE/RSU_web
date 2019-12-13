@@ -1,25 +1,24 @@
 <template>
   <div id="log-list">
-
-    <div class='tabs-list'>
+    <div class="tabs-list">
       <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
         <el-tab-pane label="系统日志" name="log"></el-tab-pane>
         <el-tab-pane label="RSU信息日志" name="rsu"></el-tab-pane>
         <el-tab-pane label="车辆信息日志" name="car"></el-tab-pane>
       </el-tabs>
-      <div class='search-all'>
-        <div class='search-box'>
+      <div class="search-all">
+        <div class="search-box">
           <el-input placeholder="请输入搜索内容" v-model="search" size="small">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
-       </div>
+        </div>
       </div>
     </div>
 
     <div class="table-list">
-      <div class='searchs'>
-        <div class='search-time'>
-          <div class='searchTime-box'>
+      <div class="searchs">
+        <div class="search-time">
+          <div class="searchTime-box">
             <span>时间段：</span>
             <el-date-picker
               size="small"
@@ -27,11 +26,13 @@
               type="datetimerange"
               range-separator="至"
               start-placeholder="开始日期"
-              end-placeholder="结束日期">
+              end-placeholder="结束日期"
+            >
             </el-date-picker>
           </div>
-          <div class='time-right'>
-            日志条数：<span>5500000</span>条 &nbsp;&nbsp;&nbsp;查询时间：<span>1.5</span>s
+          <div class="time-right">
+            日志条数：<span>5500000</span>条
+            &nbsp;&nbsp;&nbsp;查询时间：<span>1.5</span>s
           </div>
         </div>
       </div>
@@ -55,8 +56,7 @@
 <script>
 export default {
   name: 'LogList',
-  components: {
-  },
+  components: {},
   data () {
     return {
       activeName: 'log',
@@ -106,7 +106,8 @@ export default {
           requestUrl: '/rest/carnumber/list',
           requestTime: '0.9s',
           happenTime: '2019-12-12 15:50:00',
-        }, {
+        },
+        {
           rsuId: '01',
           roadId: '001',
           doorFrame: 'r门架',
@@ -116,7 +117,8 @@ export default {
           requestUrl: '/rest/carnumber/list',
           requestTime: '0.9s',
           happenTime: '2019-12-12 15:50:00',
-        }, {
+        },
+        {
           rsuId: '01',
           roadId: '001',
           doorFrame: 'r门架',
@@ -126,7 +128,8 @@ export default {
           requestUrl: '/rest/carnumber/list',
           requestTime: '0.9s',
           happenTime: '2019-12-12 15:50:00',
-        }, {
+        },
+        {
           rsuId: '01',
           roadId: '001',
           doorFrame: 'r门架',
@@ -136,7 +139,8 @@ export default {
           requestUrl: '/rest/carnumber/list',
           requestTime: '0.9s',
           happenTime: '2019-12-12 15:50:00',
-        }, {
+        },
+        {
           rsuId: '01',
           roadId: '001',
           doorFrame: 'r门架',
@@ -146,7 +150,8 @@ export default {
           requestUrl: '/rest/carnumber/list',
           requestTime: '0.9s',
           happenTime: '2019-12-12 15:50:00',
-        }, {
+        },
+        {
           rsuId: '01',
           roadId: '001',
           doorFrame: 'r门架',
@@ -156,7 +161,8 @@ export default {
           requestUrl: '/rest/carnumber/list',
           requestTime: '0.9s',
           happenTime: '2019-12-12 15:50:00',
-        }, {
+        },
+        {
           rsuId: '01',
           roadId: '001',
           doorFrame: 'r门架',
@@ -181,15 +187,17 @@ export default {
 
 <style lang="less">
 #log-list {
+  padding: 40px 40px 0;
   input {
     background-color: transparent;
   }
-  .el-input__inner{
+  .el-input__inner {
     background-color: transparent;
     border: 1px solid #0d2a95;
     color: #fff;
   }
-  .el-range-editor .el-range-input, .el-date-editor .el-range-separator{
+  .el-range-editor .el-range-input,
+  .el-date-editor .el-range-separator {
     color: #fff;
   }
   .tabs-list {
@@ -209,20 +217,21 @@ export default {
         }
       }
     }
-    .el-tabs__content{
+    .el-tabs__content {
       display: none;
     }
-    .el-tabs--border-card{
+    .el-tabs--border-card {
       border: 1px solid transparent;
     }
-    .search-all{
+    .search-all {
       position: absolute;
       top: -2px;
       right: 10px;
-      .search-box{
+      .search-box {
         display: inline-block;
         width: 300px;
-        .el-input-group__append, .el-input-group__prepend{
+        .el-input-group__append,
+        .el-input-group__prepend {
           background-color: #0d2a95;
           color: #fff;
           border: 1px solid #0d2a95;
@@ -232,8 +241,8 @@ export default {
   }
 
   .table-list {
-    border-right: 1px solid #0d2a95;
-    border-left: 1px solid #0d2a95;
+    // border-right: 1px solid #0d2a95;
+    // border-left: 1px solid #0d2a95;
 
     .el-table th,
     .el-table tr {
@@ -242,41 +251,45 @@ export default {
     .el-table,
     .el-table__expanded-cell {
       background-color: transparent;
-      color: #fff
+      color: #fff;
     }
-    .el-table thead{
+    .el-table thead {
       color: #fff;
       background-color: #0d2a95;
     }
-    .el-table--enable-row-hover .el-table__body tr:hover>td{
-      background: #03173E;
+    .el-table--enable-row-hover .el-table__body tr:hover > td {
+      background: #03173e;
     }
-    .el-table--striped .el-table__body tr.el-table__row--striped td{
-      background: #03173E;
-
+    .el-table--striped .el-table__body tr.el-table__row--striped td {
+      background: #03173e;
     }
-    .el-table td, .el-table th.is-leaf{
+    .el-table td,
+    .el-table th.is-leaf {
       border-bottom: 1px solid #0d2a95;
     }
-    .searchs{
+    .el-table--border::after,
+    .el-table--group::after,
+    .el-table::before {
+      background: transparent;
+    }
+    .searchs {
       padding: 15px;
-      .search-time{
-        float: right;
-        .searchTime-box{
-          margin-bottom: 20px;
+      .search-time {
+        .searchTime-box {
+          display: inline-block;
         }
-        .time-right{
+        .time-right {
+          float: right;
           font-size: 12px;
-          color: #C0C4CC;
+          color: #c0c4cc;
           margin: 10px 0;
           text-align: right;
-          span{
+          span {
             font-size: 16px;
           }
         }
       }
     }
   }
-
 }
 </style>

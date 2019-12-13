@@ -3,19 +3,19 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-12 16:14:51
  * @LastEditors: YOYO 792611446@qq.com
- * @LastEditTime: 2019-12-12 22:00:57
+ * @LastEditTime: 2019-12-13 09:38:54
  -->
 <template>
   <div id="index-layout">
-      <TheHead />
-      <div class='contain'>
-        <router-view></router-view>
-      </div>
+    <TheHead />
+    <div class="contain">
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
 <script>
-import TheHead from '@/components/TheHead'
+import TheHead from '@/components/TheHead';
 
 export default {
   name: 'HomeLayout',
@@ -33,8 +33,5 @@ export default {
   height: 100vh;
   background-image: linear-gradient(-45deg, #011c4c, #001c4d);
   overflow: auto;
-  .contain{
-    padding: 20px 40px;
-  }
 }
 </style>

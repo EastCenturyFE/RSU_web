@@ -63,7 +63,17 @@ export default {
       display: inline-block;
       width: 80px;
       text-align: center;
+      position: relative;
       cursor: pointer;
+      &::after{
+        content: '';
+        position: absolute;
+        top: 19px;
+        right: -15px;
+        border: 1px solid red;
+        width: 20px;
+        height: 20px;
+      }
     }
   }
   h1 {
