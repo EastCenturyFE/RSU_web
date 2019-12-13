@@ -152,8 +152,8 @@ export default {
       map: null,
       AMapManager,
       zoom: 12,
-      // center: [121.59996, 31.197646],
-      center: [116.418261, 39.921984],
+      center: [121.59996, 31.197646],
+      // center: [116.418261, 39.921984],
       value1: 12,
       tableDta: [
         {
@@ -211,7 +211,6 @@ export default {
       }
       this.tableDta.push(...moniData)
       setTimeout(() => {
-        console.log([this.tableDta.slice(9, this.tableDta.length)])
         this.tableDta = [...this.tableDta.slice(9, this.tableDta.length)]
       }, 3000)
     },
@@ -365,6 +364,7 @@ export default {
         font-size: 18px;
         color: #00ebff;
         overflow: hidden;
+        transform: skewX(-20deg);
       }
 
       .table-container{
@@ -386,7 +386,7 @@ export default {
           box-sizing: border-box;
         }
         .table-header{
-          background: rgba(29,67,159, 4);
+          background: rgba(29,67,159, .8);
         }
         .table-data{
           height: 326px;
