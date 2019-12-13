@@ -110,7 +110,7 @@ const rsuHeader = [
     prop: 'downNums',
   },
   {
-    label: '总数量',
+    label: '交易金额',
     prop: 'reqTotal',
   },
   {

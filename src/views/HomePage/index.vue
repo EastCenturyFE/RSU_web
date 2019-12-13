@@ -8,8 +8,8 @@
       </div>
       <div class="box">
         <div><UploadCount /></div>
-        <div><SuccessRate /></div>
-        <div><SuccessRate /></div>
+        <div><UploadCount /></div>
+        <div><UploadCount /></div>
       </div>
     </div>
   </div>
@@ -41,7 +41,7 @@ export default {
 <style lang="less" scoped>
 #home-page {
   // border: 1px solid blue;
-  padding: 8vh 40px;
+  padding: 5vh 40px;
   height: calc(84vh - 60px);
   // .vertical-box {
     // border: 1px solid red;
@@ -51,11 +51,11 @@ export default {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-    margin-bottom: 8vh;
+    margin-bottom: 5vh;
     > div {
       min-width: 350px;
-      width: 30%;
-      height: 300px;
+      width: 32%;
+      height: 360px;
       background: #042359;
       border-radius: 4px;
     }

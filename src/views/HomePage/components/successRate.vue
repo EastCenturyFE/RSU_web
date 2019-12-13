@@ -8,6 +8,7 @@
 <script>
 
 // 引入 ECharts 主模块
+import { getSuccessRate } from '../service'
 var echarts = require('echarts/lib/echarts')
 // 引入柱状图
 require('echarts/lib/chart/line')
@@ -25,12 +26,13 @@ export default {
     }
   },
   methods: {
-    setChartOption () {
+    setChartOption (xAxisData, successRateAVGData, tradingRateAVGData) {
       // 指定图表的配置项和数据
       var option = {
         tooltip: {},
         grid: {
           right: '15%',
+          bottom: '35%',
         },
         xAxis: {
           name: '路段',
@@ -40,7 +42,7 @@ export default {
             align: 'left',
           },
           nameLocation: 'end',
-          data: ['1', '23', '25', '4', '45', '6', '7', '78', '78', '65'],
+          data: xAxisData,
           axisLine: {
             lineStyle: {
               color: '#082B72',
@@ -60,6 +62,7 @@ export default {
           },
           axisLabel: {
             show: true,
+            rotate: -45,
             textStyle: {
               color: '#D9DBE2',
               fontSize: '12',
@@ -122,7 +125,7 @@ export default {
             itemStyle: {
               color: '#ffac53',
             },
-            data: [1, 23, 25, 4, 45, 6, 7, 78, 78, 65],
+            data: successRateAVGData,
           },
           {
             name: '设备平均成功率',
@@ -137,7 +140,7 @@ export default {
             itemStyle: {
               color: '#3890f2',
             },
-            data: [81, 22, 25, 4, 45, 6, 7, 78, 75, 50],
+            data: tradingRateAVGData,
           },
         ],
       }
@@ -145,15 +148,36 @@ export default {
       window.onresize = this.myChart.resize
     },
     // 初始化chart
-    initChart (selector) {
-      const container = document.querySelector(selector)
+    initChart (xAxisData, successRateAVGData, tradingRateAVGData) {
+      const container = document.querySelector('#successRate_charts')
       this.myChart = echarts.init(container)
-      this.setChartOption()
+      this.setChartOption(xAxisData, successRateAVGData, tradingRateAVGData)
+    },
+    async getData () {
+      let res = await getSuccessRate()
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
+        console.log(ms)
+        let successRateAVGData = []
+        let tradingRateAVGData = []
+        let xAxisData = []
+        pageList.forEach(item => {
+          let { successRateAVG, tradingRateAVG, key } = JSON.parse(item)
+          successRateAVGData.push(successRateAVG.value)
+          tradingRateAVGData.push(tradingRateAVG.value)
+          xAxisData.push(key)
+        })
+        this.initChart(xAxisData, successRateAVGData, tradingRateAVGData)
+        // console.log(successRateAVGData)
+        // console.log(tradingRateAVGData)
+        // console.log(xAxisData)
+      }
     },
   },
-  created () {},
+  created () {
+  },
   mounted () {
-    this.initChart('#successRate_charts')
+    this.getData()
   },
 }
 </script>

@@ -37,9 +37,7 @@
                 </ul>
                 <el-button type="primary" size="small" @click="handleClick('log')">查询</el-button>
               </div>
-              <div class="time-right">
-                日志条数：<span>5500000</span>条
-                &nbsp;&nbsp;&nbsp;查询时间：<span>{{requestTime}}</span>
+              <div class="time-right">查询时间：<span>{{requestTime}}</span>
               </div>
             </div>
           </div>
@@ -80,9 +78,7 @@
                 </ul>
                 <el-button type="primary" size="small" @click="handleClick('rsu')">查询</el-button>
               </div>
-              <div class="time-right">
-                日志条数：<span>5500000</span>条
-                &nbsp;&nbsp;&nbsp;查询时间：<span>{{requestTime}}</span>
+              <div class="time-right">查询时间：<span>{{requestTime}}</span>
               </div>
             </div>
           </div>
@@ -122,9 +118,7 @@
                 </ul>
                 <el-button type="primary" size="small" @click="handleClick('car')">查询</el-button>
               </div>
-              <div class="time-right">
-                日志条数：<span>5500000</span>条
-                &nbsp;&nbsp;&nbsp;查询时间：<span>{{requestTime}}</span>
+              <div class="time-right">查询时间：<span>{{requestTime}}</span>
               </div>
             </div>
           </div>
