@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "echarts": "^4.5.0",
     "element-ui": "^2.5.4",
     "md5": "^2.2.1",
     "qs": "^6.6.0",
