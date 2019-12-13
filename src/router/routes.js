@@ -6,14 +6,20 @@ import {
   downToUpReduceMetaAuthority,
 } from '@/utils/router'
 
-const HomePage = () => import(/* webpackChunkName: "home" */ '@/views/HomePage')
+const HomePage = () =>
+  import(/* webpackChunkName: "home" */ '@/views/HomePage')
+const Login = () => import(/* webpackChunkName: "home" */ '@/views/LoginPage')
 
-const NoFind = () => import(/* webpackChunkName: "404" */ '@/views/Exception/404.vue')
+const NoFind = () =>
+  import(/* webpackChunkName: "404" */ '@/views/Exception/404.vue')
 
 // 开始书写
-const IndexLayout = () => import(/* webpackChunkName: "IndexLayout" */ '@/layout/IndexLayout.vue')
-const LogList = () => import(/* webpackChunkName: "LogList" */ '@/views/LogList')
-const Monitor = () => import(/* webpackChunkName: "Monitor" */ '@/views/Monitor')
+const IndexLayout = () =>
+  import(/* webpackChunkName: "IndexLayout" */ '@/layout/IndexLayout.vue')
+const LogList = () =>
+  import(/* webpackChunkName: "LogList" */ '@/views/LogList')
+const Monitor = () =>
+  import(/* webpackChunkName: "Monitor" */ '@/views/Monitor')
 
 const routes = [
   {
@@ -53,6 +59,16 @@ const routes = [
         },
       },
     ],
+  },
+  {
+    path: '/login',
+    name: 'loglist',
+    component: Login,
+    meta: {
+      name: '登录',
+      title: '登录',
+      authority: false,
+    },
   },
   // {
   //   path: '/403',
