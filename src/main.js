@@ -18,7 +18,6 @@ Vue.use(element)
 
 VueAMap.initAMapApiLoader({
   key: '570d3c0a476dcf376edd5239e3629ed7',
-  // plugin: ['AMap.Autocomplete', 'AMap.PlaceSearch', 'AMap.Scale', 'AMap.OverView', 'AMap.ToolBar', 'AMap.MapType', 'AMap.PolyEditor', 'AMap.CircleEditor'],
   // 默认高德 sdk 版本为 1.4.4
   v: '1.4.15',
 })

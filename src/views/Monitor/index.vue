@@ -3,40 +3,128 @@
     <div class="amap-demo" id="amapContainer">
     </div>
 
-    <div class="car-container">
-      <!-- <div v-for="(item, i) in carData" :key="i">
-      </div> -->
-      <div class="car-item">
-        <div class="block-style"></div>
-        <span class="title">系统日志总数</span>
-        <span class="value">
-          125.25<sup>w</sup>
-        </span>
-        <div class="img-container">
-          <img src="/static/Monitor/up.png" alt="" />
+    <div class="page-container">
+      <div class="car-container">
+        <!-- <div v-for="(item, i) in carData" :key="i">
+        </div> -->
+        <div class="car-item">
+          <div class="block-style"></div>
+          <span class="title">系统日志总数</span>
+          <span class="value">
+            125.25<sup>w</sup>
+          </span>
+          <div class="img-container">
+            <img draggable="false" src="/static/Monitor/up.png" alt="" />
+          </div>
+        </div>
+        <div class="car-item">
+          <div class="block-style"></div>
+          <span class="title">RSU交易额</span>
+          <span class="value">
+            125.25<sup>w</sup>
+          </span>
+          <div class="img-container">
+            <img draggable="false" src="/static/Monitor/up.png" alt="" />
+          </div>
+        </div>
+        <div class="car-item">
+          <div class="block-style"></div>
+          <span class="title">车辆总数</span>
+          <span class="value">
+            125.25<sup>w</sup>
+          </span>
+          <div class="img-container">
+            <img draggable="false" src="/static/Monitor/up.png" alt="" />
+          </div>
         </div>
       </div>
-      <div class="car-item">
-        <div class="block-style"></div>
-        <span class="title">RSU交易额</span>
-        <span class="value">
-          125.25<sup>w</sup>
-        </span>
-        <div class="img-container">
-          <img src="/static/Monitor/up.png" alt="" />
+
+      <div class="list-container">
+        <div class="list-item">
+          <div class="tabs-container">
+            车辆类型分析
+          </div>
+          <div class="table-container">
+            <table>
+              <tr class="table-header">
+                <td>路段名称</td>
+                <td>数量</td>
+              </tr>
+              <tr class="table-content">
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="car-item">
-        <div class="block-style"></div>
-        <span class="title">车辆总数</span>
-        <span class="value">
-          125.25<sup>w</sup>
-        </span>
-        <div class="img-container">
-          <img src="/static/Monitor/up.png" alt="" />
+        <div class="list-item">
+           <div class="tabs-container">
+            车辆类型分析
+          </div>
+          <div class="table-container">
+            <table>
+              <tr class="table-header">
+                <td>路段名称</td>
+                <td>数量</td>
+              </tr>
+              <tr class="table-content">
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+              <tr>
+                <td>假的路段</td>
+                <td>假的数量</td>
+              </tr>
+            </table>
+          </div>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -52,7 +140,8 @@ export default {
       map: null,
       AMapManager,
       zoom: 12,
-      center: [121.59996, 31.197646],
+      // center: [121.59996, 31.197646],
+      center: [116.418261, 39.921984],
       value1: 12,
       carData: [
         {
@@ -90,8 +179,6 @@ export default {
         skyColor: 'red',
         showBuildingBlock: false,
       })
-      // this.map.AmbientLight = new AMap.Lights.AmbientLight([0,0,0],0.1)
-      // this.map.DirectionLight = new AMap.Lights.DirectionLight([10,0,1],[0,0,1],0.6);
       /* eslint-enable */
     })
   },
@@ -100,21 +187,34 @@ export default {
 
 <style lang="less" scoped>
 #monitor{
-  height: calc(100vh - 55px);
+  min-height: calc(100vh - 55px);
+  height: 100%;
+  // -webkit-user-select: none;
+  //   -moz-user-select: none;
+  //   -ms-user-select: none;
+  //   user-select: none;
   .amap-demo{
-    height: 100%;
+    height: auto;
+    min-height: calc(100vh - 55px);
+  }
+
+  .page-container{
+    position: absolute;
+    z-index: 999;
+    top: 55px;
+    width: 100%;
+    height: calc(100vh - 55px);
+    pointer-events: none;
+    padding: 0 50px;
+    box-sizing: border-box;
   }
 
   .car-container{
     height: 90px;
-    position: absolute;
     width: 1346px;
-    top: 80px;
-    left: 50%;
-    margin-left: -673px;
-    z-index: 999;
+    margin: 0 auto;
+    margin-top: 20px;
     display: grid;
-    pointer-events: none;
     grid-template-columns: repeat(3, 418px);
     grid-template-rows: 90px;
     grid-column-gap: 48px;
@@ -149,7 +249,6 @@ export default {
       .title{
         font-size: 16px;
         color: rgb(240,237,237);
-        // margin: 0 28px 0 20px;
         min-width: 130px;
         text-align: center;
       }
@@ -193,6 +292,52 @@ export default {
         }
       }
 
+    }
+  }
+
+  .list-container{
+    height: 440px;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    .list-item{
+      width: 504px;
+      height: 100%;
+      .tabs-container{
+        pointer-events: auto;
+        width: 170px;
+        height: 40px;
+        background-image: url('/static/Monitor/tabs-back.png');
+        background-size: cover;
+        text-align: center;
+        line-height: 30px;
+        font-size: 18px;
+        color: #00ebff;
+      }
+
+      .table-container{
+        pointer-events: auto;
+        margin-top: 18px;
+        height: 380px;
+        background: rgba(0,8,47, .6);
+
+        table{
+          width: 100%;
+        }
+        tr{
+          width: 100%;
+        }
+        .table-header{
+          background: rgba(29,67,159, 4);
+        }
+        tr > td {
+          height: 45px;
+          text-align: center;
+          line-height: 45px;
+          font-size: 15px;
+          border-bottom: 1px solid rgb(17, 44, 113);
+        }
+      }
     }
   }
 }
