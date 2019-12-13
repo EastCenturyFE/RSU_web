@@ -54,25 +54,31 @@ export default {
   .menu {
     position: absolute;
     top: -5px;
-    left: 18px;
+    left: 8px;
     .active {
       color: #01e4fa;
     }
     li {
-      border-right: 1px solid #1a42a4;
       display: inline-block;
-      width: 80px;
+      width: 90px;
       text-align: center;
       position: relative;
       cursor: pointer;
-      &::after{
-        content: '';
+
+      &::after {
+        content: "";
         position: absolute;
         top: 19px;
         right: -15px;
-        border: 1px solid red;
-        width: 20px;
+        width: 25px;
         height: 20px;
+        background: url("/static/img/layout/menu.png");
+      }
+      &:first-child::after {
+        right: -1px;
+      }
+      &:last-child::after {
+        width: 0;
       }
     }
   }
