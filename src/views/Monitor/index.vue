@@ -1,14 +1,9 @@
 <template>
   <div id="monitor">
-    <!-- <el-amap ref="map" vid="amapContainer" :amap-manager="AMapManager"
-    :center="center" :zoom="zoom" class="amap-demo" mapStyle="ab56ea6d2065aadeee5cb62e09b107a1">
-    </el-amap> -->
-
     <div class="amap-demo" id="amapContainer">
     </div>
 
     <div class="car-container">
-        <el-slider v-model="value1"></el-slider>
       <!-- <div v-for="(item, i) in carData" :key="i">
       </div> -->
     </div>
