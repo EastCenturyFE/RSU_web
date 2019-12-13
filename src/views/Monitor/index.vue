@@ -380,8 +380,10 @@ export default {
         li{
           width: 100%;
           display: flex;
-          height: 40px;
+          height: 41px;
           line-height: 40px;
+          border-bottom: 1px solid rgb(17, 44, 113);
+          box-sizing: border-box;
         }
         .table-header{
           background: rgba(29,67,159, 4);
@@ -395,14 +397,12 @@ export default {
           flex-grow: 1;
           text-align: center;
           font-size: 15px;
-          border-bottom: 1px solid rgb(17, 44, 113);
-
           overflow: hidden;
         }
 
         .li-animation-0{
           transition: margin 1.5s;
-          margin-top: -320px
+          margin-top: -328px
         }
       }
     }
