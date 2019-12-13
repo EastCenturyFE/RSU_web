@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: YOYO 792611446@qq.com
+ * @Date: 2019-12-12 15:57:58
+ * @LastEditors: YOYO 792611446@qq.com
+ * @LastEditTime: 2019-12-13 22:37:42
+ */
 import { restData } from '@/config'
 import { getPropVal } from '@/utils/objectUtil'
 
@@ -37,19 +44,19 @@ function injectInfo (res) {
  * @return {boolean | Object}       如果不成功返回 false，否则返回通过响应拿到的用户数据
  */
 function getRoleConfiguration (info) {
-  let user
+  // let user
 
-  if (getPropVal(info, restData.authUserPath + '.rolesString')) {
-    user = getPropVal(info, restData.authUserPath)
-  }
+  // if (getPropVal(info, restData.authUserPath + '.rolesString')) {
+  //   user = getPropVal(info, restData.authUserPath)
+  // }
 
-  if (!user || !user.rolesString || !user.rolesString.length) {
-    console.warn('用户角色信息配置不合法!')
+  // if (!user || !user.rolesString || !user.rolesString.length) {
+  //   console.warn('用户角色信息配置不合法!')
 
-    return false
-  }
+  //   return false
+  // }
 
-  return user
+  return { aa: 12 }
 }
 
 // 整理并获得 用户信息

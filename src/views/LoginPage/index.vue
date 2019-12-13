@@ -60,7 +60,7 @@ export default {
       this.getDicData({ loginLoading: true })
       this.pageLogin({
         username: this.username,
-        password: this.password,
+        pwd: this.password,
       })
     },
   },

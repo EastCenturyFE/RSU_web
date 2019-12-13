@@ -1,3 +1,10 @@
+/*
+ * @Description:
+ * @Author: YOYO 792611446@qq.com
+ * @Date: 2019-12-12 15:57:58
+ * @LastEditors: YOYO 792611446@qq.com
+ * @LastEditTime: 2019-12-13 22:35:38
+ */
 import md5 from 'md5'
 
 import request from '@/utils/request'
@@ -17,12 +24,12 @@ export function appSessionLogin () {
 export function pageLogin (params) {
   const {
     username,
-    password,
+    pwd,
   } = params
 
   return request.post(restData.checkLoginUrl, {
     username,
-    password: params.md5 ? password : md5(password),
+    pwd: params.md5 ? pwd : md5(pwd),
   })
 }
 

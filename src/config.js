@@ -3,7 +3,7 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-12 15:57:58
  * @LastEditors: YOYO 792611446@qq.com
- * @LastEditTime: 2019-12-13 22:26:19
+ * @LastEditTime: 2019-12-13 22:32:21
  */
 /** 开发模式 */
 export const devMode = false
@@ -28,7 +28,7 @@ export const productInfo = {
 /** 后端服务对接相关配置 */
 export const restData = {
   // 用户登录校验接口地址
-  checkLoginUrl: '/etc/login/',
+  checkLoginUrl: '/etc/login',
 
   // 用户注销登录接口地址
   logoutUrl: '/rest/default/quit',
