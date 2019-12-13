@@ -342,7 +342,7 @@ export default {
       background: rgba(29, 67, 159, 0.8);
     }
     .table-content {
-      background: rgba(0, 8, 47, 0.6);
+      background: rgba(0, 8, 47, 0.8);
     }
     .table-content {
       overflow: hidden;

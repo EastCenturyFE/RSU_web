@@ -6,9 +6,7 @@
         :key="item.tab"
         @click="handleClick(item.path, index)"
         :class="index === tabIndex ? 'active' : ''"
-      >
-        {{ item.name }}
-      </li>
+      >{{ item.name }}</li>
     </ul>
     <h1>日志监测系统</h1>
     <div class="head-right">
@@ -38,6 +36,11 @@ export default {
       this.tabIndex = index
       this.$router.push(path)
     },
+  },
+  created () {
+    this.tabIndex = this.tablist.findIndex(
+      val => val.path === this.$route.path
+    )
   },
 }
 </script>
