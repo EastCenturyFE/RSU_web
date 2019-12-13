@@ -6,6 +6,7 @@
 </template>
 
 <script>
+import { getTradeAmount } from '../service'
 
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts')
@@ -25,11 +26,12 @@ export default {
     }
   },
   methods: {
-    setChartOption () {
+    setChartOption (xAxisData, reqTotalSumData) {
       // 指定图表的配置项和数据
       var option = {
         grid: {
           right: '15%',
+          bottom: '35%',
         },
         tooltip: {},
         xAxis: {
@@ -40,7 +42,7 @@ export default {
             align: 'left',
           },
           nameLocation: 'end',
-          data: ['1', '23', '25', '4', '45', '6', '7', '78', '78', '65'],
+          data: xAxisData,
           axisLine: {
             lineStyle: {
               color: '#082B72',
@@ -60,6 +62,7 @@ export default {
           },
           axisLabel: {
             show: true,
+            rotate: -45,
             textStyle: {
               color: '#D9DBE2',
               fontSize: '12',
@@ -122,7 +125,7 @@ export default {
             itemStyle: {
               color: '#1CC082',
             },
-            data: [1, 23, 25, 4, 45, 6, 7, 78, 78, 65],
+            data: reqTotalSumData,
           },
         ],
       }
@@ -130,15 +133,30 @@ export default {
       window.onresize = this.myChart.resize
     },
     // 初始化chart
-    initChart (selector) {
-      const container = document.querySelector(selector)
+    initChart (xAxisData, reqTotalSumData) {
+      const container = document.querySelector('#tradeAmount_charts')
       this.myChart = echarts.init(container)
-      this.setChartOption()
+      this.setChartOption(xAxisData, reqTotalSumData)
+    },
+    async getData () {
+      let res = await getTradeAmount()
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
+        console.log(ms)
+        let reqTotalSumData = []
+        let xAxisData = []
+        pageList.forEach(item => {
+          let { reqTotalSum, key } = JSON.parse(item)
+          reqTotalSumData.push(reqTotalSum.value)
+          xAxisData.push(key)
+        })
+        this.initChart(xAxisData, reqTotalSumData)
+      }
     },
   },
   created () {},
   mounted () {
-    this.initChart('#tradeAmount_charts')
+    this.getData()
   },
 }
 </script>

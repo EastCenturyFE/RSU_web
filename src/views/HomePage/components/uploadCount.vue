@@ -6,7 +6,7 @@
 </template>
 
 <script>
-
+import { getUploadCount } from '../service'
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts')
 // 引入柱状图
@@ -25,11 +25,12 @@ export default {
     }
   },
   methods: {
-    setChartOption () {
+    setChartOption (xAxisData, upNunmsSumData, downNumsSumData) {
       // 指定图表的配置项和数据
       var option = {
         grid: {
           right: '15%',
+          bottom: '35%',
         },
         tooltip: {},
         xAxis: {
@@ -40,7 +41,7 @@ export default {
             align: 'left',
           },
           nameLocation: 'end',
-          data: ['1', '23', '25', '4', '45', '6', '7', '78', '78', '65'],
+          data: xAxisData,
           axisLine: {
             lineStyle: {
               color: '#082B72',
@@ -60,6 +61,7 @@ export default {
           },
           axisLabel: {
             show: true,
+            rotate: -45,
             textStyle: {
               color: '#D9DBE2',
               fontSize: '12',
@@ -110,7 +112,7 @@ export default {
         },
         series: [
           {
-            name: '上传数量',
+            name: '资源上传数量',
             type: 'line',
             smooth: true,
             symbol: 'circle',
@@ -122,10 +124,10 @@ export default {
             itemStyle: {
               color: '#1CC082',
             },
-            data: [1, 23, 25, 4, 45, 6, 7, 78, 78, 65],
+            data: upNunmsSumData,
           },
           {
-            name: '未上传数量',
+            name: '资源未上传数量',
             type: 'line',
             smooth: true,
             symbol: 'circle',
@@ -137,7 +139,7 @@ export default {
             itemStyle: {
               color: '#F85182',
             },
-            data: [2, 5, 7, 5, 7, 5, 5, 10, 10, 60],
+            data: downNumsSumData,
           },
         ],
       }
@@ -145,16 +147,32 @@ export default {
       window.onresize = this.myChart.resize
     },
     // 初始化chart
-    initChart (selector) {
-      const container = document.querySelector(selector)
+    initChart (xAxisData, upNunmsSumData, downNumsSumData) {
+      const container = document.querySelector('#uploadCount_charts')
       this.myChart = echarts.init(container)
-      this.setChartOption()
+      this.setChartOption(xAxisData, upNunmsSumData, downNumsSumData)
+    },
+    async getData () {
+      let res = await getUploadCount()
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
+        console.log(ms)
+        let upNunmsSumData = []
+        let downNumsSumData = []
+        let xAxisData = []
+        pageList.forEach(item => {
+          let { upNunmsSum, downNumsSum, key } = JSON.parse(item)
+          upNunmsSumData.push(upNunmsSum.value)
+          downNumsSumData.push(downNumsSum.value)
+          xAxisData.push(key)
+        })
+        this.initChart(xAxisData, upNunmsSumData, downNumsSumData)
+      }
     },
   },
   created () {},
   mounted () {
-    console.log(123123123123)
-    this.initChart('#uploadCount_charts')
+    this.getData()
   },
 }
 </script>

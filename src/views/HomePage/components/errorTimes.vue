@@ -6,7 +6,7 @@
 </template>
 
 <script>
-
+import { getErrorTime } from '../service'
 // 引入 ECharts 主模块
 var echarts = require('echarts/lib/echarts')
 // 引入柱状图
@@ -25,7 +25,7 @@ export default {
     }
   },
   methods: {
-    setChartOption () {
+    setChartOption (xAxisData, docCount) {
       // 指定图表的配置项和数据
       var option = {
         grid: {
@@ -40,7 +40,7 @@ export default {
             align: 'left',
           },
           nameLocation: 'end',
-          data: ['1', '23', '25', '4', '45', '6', '7', '78', '78', '65'],
+          data: xAxisData,
           axisLine: {
             lineStyle: {
               color: '#082B72',
@@ -60,6 +60,7 @@ export default {
           },
           axisLabel: {
             show: true,
+            rotate: -45,
             textStyle: {
               color: '#D9DBE2',
               fontSize: '12',
@@ -122,7 +123,7 @@ export default {
             itemStyle: {
               color: '#EF5081',
             },
-            data: [1, 23, 25, 4, 45, 6, 7, 78, 78, 65],
+            data: docCount,
           },
         ],
       }
@@ -130,15 +131,30 @@ export default {
       window.onresize = this.myChart.resize
     },
     // 初始化chart
-    initChart (selector) {
-      const container = document.querySelector(selector)
+    initChart (xAxisData, docCount) {
+      const container = document.querySelector('#errorTimes_charts')
       this.myChart = echarts.init(container)
-      this.setChartOption()
+      this.setChartOption(xAxisData, docCount)
+    },
+    async getData () {
+      let res = await getErrorTime()
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
+        console.log(ms)
+        let docCount = []
+        let xAxisData = []
+        pageList.forEach(item => {
+          let { doc_count, key } = item
+          docCount.push(doc_count)
+          xAxisData.push(key)
+        })
+        this.initChart(xAxisData, docCount)
+      }
     },
   },
   created () {},
   mounted () {
-    this.initChart('#errorTimes_charts')
+    this.getData()
   },
 }
 </script>
