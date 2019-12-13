@@ -10,8 +10,7 @@ export const productInfo = {
   version: 'v_0.0.1',
 
   // 系统名称
-  systemName: '郑州东服务区',
-
+  systemName: '日志监测系统',
   // 高德开发者Key
   aMapKey: '6db7be8da2fea6c2690df5866292a295',
 

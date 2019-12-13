@@ -6,20 +6,14 @@ import {
   downToUpReduceMetaAuthority,
 } from '@/utils/router'
 
-// const HomeLayout = () =>
-//   import(/* webpackChunkName: "home" */ '@/layout/HomeLayout.vue')
-const HomePage = () =>
-  import(/* webpackChunkName: "home" */ '@/views/HomePage')
+const HomePage = () => import(/* webpackChunkName: "home" */ '@/views/HomePage')
 
-const NoFind = () =>
-  import(/* webpackChunkName: "404" */ '@/views/Exception/404.vue')
+const NoFind = () => import(/* webpackChunkName: "404" */ '@/views/Exception/404.vue')
 
 // 开始书写
-const IndexLayout = () =>
-  import(/* webpackChunkName: "403" */ '@/layout/IndexLayout.vue')
-const LogList = () => import(/* webpackChunkName: "403" */ '@/views/LogList')
-const Monitor = () =>
-  import(/* webpackChunkName: "myTask" */ '@/views/Monitor')
+const IndexLayout = () => import(/* webpackChunkName: "IndexLayout" */ '@/layout/IndexLayout.vue')
+const LogList = () => import(/* webpackChunkName: "LogList" */ '@/views/LogList')
+const Monitor = () => import(/* webpackChunkName: "Monitor" */ '@/views/Monitor')
 
 const routes = [
   {
@@ -62,11 +56,6 @@ const routes = [
       },
     ],
   },
-  // {
-  //   path: '/',
-  //   redirect: 'index',
-  //   meta: { hideInMenu: true },
-  // },
   // {
   //   path: '/403',
   //   component: NoPermission,
