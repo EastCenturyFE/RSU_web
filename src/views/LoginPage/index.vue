@@ -38,7 +38,7 @@
 </template>
 
 <script>
-// import { mapState, mapActions, mapMutations } from 'vuex';
+import { mapState, mapActions, mapMutations } from 'vuex'
 
 import { pages } from '@/config'
 
@@ -52,10 +52,10 @@ export default {
       timer: '',
     }
   },
-  // computed: mapState(['loaded', 'loginLoading']),
+  computed: mapState(['loaded', 'loginLoading']),
   methods: {
-    // ...mapMutations(['getDicData']),
-    // ...mapActions(['pageLogin']),
+    ...mapMutations(['getDicData']),
+    ...mapActions(['pageLogin']),
     loginClickHandler () {
       this.getDicData({ loginLoading: true })
       this.pageLogin({
