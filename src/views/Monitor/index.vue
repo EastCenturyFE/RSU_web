@@ -45,40 +45,20 @@
             车辆类型分析
           </div>
           <div class="table-container">
-            <table>
-              <tr class="table-header">
-                <td>路段名称</td>
-                <td>数量</td>
-              </tr>
-              <tr class="table-content">
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-            </table>
+            <ul>
+              <li class="table-header">
+                <div>路段名称</div>
+                <div>类型</div>
+                <div>数量</div>
+              </li>
+            </ul>
+            <ul class="table-data">
+              <li v-for="(item, i) in tableDta" :class="[animation ? `li-animation-${i}` : '']" :key="i">
+                <div>{{item.name}}</div>
+                <div>{{item.aa}}</div>
+                <div>{{item.type}}</div>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="list-item">
@@ -86,42 +66,26 @@
             车辆类型分析
           </div>
           <div class="table-container">
-            <table>
-              <tr class="table-header">
-                <td>路段名称</td>
-                <td>数量</td>
-              </tr>
-              <tr class="table-content">
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-              <tr>
-                <td>假的路段</td>
-                <td>假的数量</td>
-              </tr>
-            </table>
+            <ul>
+              <li class="table-header">
+                <div>路段名称</div>
+                <div>类型</div>
+                <div>数量</div>
+              </li>
+            </ul>
+            <ul class="table-data">
+              <li v-for="(item, i) in tableDta" :class="[animation ? `li-animation-${i}` : '']" :key="i">
+                <div>{{item.name}}</div>
+                <div>{{item.aa}}</div>
+                <div>{{item.type}}</div>
+              </li>
+            </ul>
           </div>
         </div>
+      </div>
+
+      <div class="btn-container">
+        <el-button @click="handleClick" type="primary">模拟动画按钮</el-button>
       </div>
     </div>
 
@@ -130,6 +94,54 @@
 
 <script>
 import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap'
+
+const moniData = [
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+  {
+    name: 'moniData_name',
+    aa: 'moniData_aa',
+    type: 'moniData_type',
+  },
+]
 
 export default {
   name: 'MyTask',
@@ -143,29 +155,68 @@ export default {
       // center: [121.59996, 31.197646],
       center: [116.418261, 39.921984],
       value1: 12,
-      carData: [
+      tableDta: [
         {
-          name: 'RSU交易额',
-          value: '125.25',
+          name: '223',
+          aa: '13',
+          type: 'ahah',
         },
         {
-          name: 'RSU交易额1',
-          value: '125.25',
+          name: '223',
+          aa: '13',
+          type: 'ahah',
         },
         {
-          name: 'RSU交易额2',
-          value: '125.25',
+          name: '223',
+          aa: '13',
+          type: 'ahah',
         },
         {
-          name: 'RSU交易额3',
-          value: '125.25',
+          name: '223',
+          aa: '13',
+          type: 'ahah',
+        },
+        {
+          name: '223',
+          aa: '13',
+          type: 'ahah',
+        },
+        {
+          name: '223',
+          aa: '13',
+          type: 'ahah',
+        },
+        {
+          name: '223',
+          aa: '13',
+          type: 'ahah',
+        },
+        {
+          name: '223',
+          aa: '13',
+          type: 'ahah',
         },
       ],
     }
   },
-  methods: {
+  computed: {
+    animation () {
+      return this.tableDta.length > 8
+    },
   },
-  async created () {
+  methods: {
+    handleClick () {
+      if (this.animation) {
+        return
+      }
+      this.tableDta.push(...moniData)
+      setTimeout(() => {
+        console.log([this.tableDta.slice(9, this.tableDta.length)])
+        this.tableDta = [...this.tableDta.slice(9, this.tableDta.length)]
+      }, 3000)
+    },
+  },
+  created () {
     lazyAMapApiLoaderInstance.load().then(() => {
       /* eslint-disable */
       this.map = new AMap.Map('amapContainer', {
@@ -313,32 +364,51 @@ export default {
         line-height: 30px;
         font-size: 18px;
         color: #00ebff;
+        overflow: hidden;
       }
 
       .table-container{
         pointer-events: auto;
         margin-top: 18px;
-        height: 380px;
+        height: 366px;
         background: rgba(0,8,47, .6);
+        overflow: hidden;
 
         table{
           width: 100%;
         }
-        tr{
+        li{
           width: 100%;
+          display: flex;
+          height: 40px;
+          line-height: 40px;
         }
         .table-header{
           background: rgba(29,67,159, 4);
         }
-        tr > td {
-          height: 45px;
+        .table-data{
+          height: 326px;
+          overflow: hidden;
+        }
+        li > div {
+          height: 100%;
+          flex-grow: 1;
           text-align: center;
-          line-height: 45px;
           font-size: 15px;
           border-bottom: 1px solid rgb(17, 44, 113);
+
+          overflow: hidden;
+        }
+
+        .li-animation-0{
+          transition: margin 1.5s;
+          margin-top: -320px
         }
       }
     }
+  }
+  .btn-container{
+    pointer-events: auto;
   }
 }
 </style>
