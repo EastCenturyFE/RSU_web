@@ -7,30 +7,30 @@ const path = require('path')
 module.exports = {
   devServer: {
     proxy: {
-      '/rest': {
-        target: 'http://zmd.jdyw.prod.hndfsj.net',
+      '/etc': {
+        target: 'http://192.168.10.30:8888',
         onProxyRes: cookiePathRewriter,
         pathRewrite: {
-          '^/rest': '/rest'
-        }
+          '^/etc': '/etc',
+        },
       },
       '/resource': {
-        target: 'http://zmd.jdyw.prod.hndfsj.net',
+        target: '192.168.10.30:8888',
         onProxyRes: cookiePathRewriter,
         pathRewrite: {
-          '^/resource': '/resource'
-        }
-      }
-    }
+          '^/resource': '/resource',
+        },
+      },
+    },
   },
   configureWebpack: (config) => {
     if (isProduction) {
       config.plugins.push(new ZipPlugin({
         path: path.join(__dirname, './dist'), // dist.zip的输出路径；./dist 把dist.zip 输出到根路径dist文件夹下
-        filename: 'dist.zip'
+        filename: 'dist.zip',
       }))
     }
-  }
+  },
 }
 
 /**

@@ -2,14 +2,14 @@
   <div id="home-page">
     <div class="vertical-box">
       <div class="box">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div><SuccessRate /></div>
+        <div><ErrorTimes /></div>
+        <div><TradeAmount /></div>
       </div>
       <div class="box">
-        <div></div>
-        <div></div>
-        <div></div>
+        <div><UploadCount /></div>
+        <div><SuccessRate /></div>
+        <div><SuccessRate /></div>
       </div>
     </div>
   </div>
@@ -17,9 +17,18 @@
 
 <script>
 
+import SuccessRate from './components/successRate'
+import ErrorTimes from './components/errorTimes'
+import TradeAmount from './components/tradeAmount'
+import UploadCount from './components/uploadCount'
+
 export default {
   name: 'HomePage',
   components: {
+    SuccessRate,
+    ErrorTimes,
+    TradeAmount,
+    UploadCount,
   },
   data () {
     return {}

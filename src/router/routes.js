@@ -26,7 +26,7 @@ const routes = [
     path: '/',
     component: IndexLayout,
     meta: { hideInMenu: true },
-    redirect: '/index',
+    redirect: '/home',
     children: [
       {
         path: '/index',

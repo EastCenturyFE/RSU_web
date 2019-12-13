@@ -3,23 +3,23 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-13 16:35:38
  * @LastEditors: YOYO 792611446@qq.com
- * @LastEditTime: 2019-12-13 16:44:23
+ * @LastEditTime: 2019-12-13 20:01:32
  */
 import request from '@/utils/request'
 
 // 请求系统日志列表
 export async function getLogList (params) {
-  return request.get('/etc/searchSysLog/', params)
+  return request.get('/etc/searchSysLog', params)
 }
 
 // resu日志列表
 export async function getRsuList (params) {
-  return request.get('/etc/searchRsuLog/', params)
+  return request.get('/etc/searchRsuLog', params)
 }
 
 // 车辆日志列表
-export async function getCarList () {
-  return request.get('/etc/searchCarLog/')
+export async function getCarList (params) {
+  return request.get('/etc/searchCarLog', params)
 }
 
 // 日志详情

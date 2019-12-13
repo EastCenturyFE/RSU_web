@@ -1,7 +1,7 @@
 <template>
   <div id="log-list">
     <div class="tabs-list">
-      <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
+      <el-tabs type="border-card" v-model="activeName" @tab-click="handleClickTab">
         <el-tab-pane label="系统日志" name="log">
           <div class="searchs">
             <div class="search-time">
@@ -11,28 +11,31 @@
                     <span>时间：</span>
                     <el-date-picker
                       size="small"
-                      v-model="dataTimeLog"
+                      v-model="dataTime_log"
                       type="datetimerange"
                       range-separator="至"
                       start-placeholder="开始日期"
                       end-placeholder="结束日期"
-                    >
+                      format="yyyy-MM-dd HH:mm:ss"
+                      value-format="yyyy-MM-dd HH:mm:ss"
+
+                    ><!-- value-format="timestamp" -->
                     </el-date-picker>
                   </li>
                   <li>
                     <span>日志标识：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="log.rsuId" size="small" />
                   </li>
                   <li>
                     <span>门架编号：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="log.doorFrame" size="small" />
                   </li>
                   <li>
                     <span>系统名称：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="log.sysName" size="small" />
                   </li>
                 </ul>
-                <el-button type="primary" size="small">查询</el-button>
+                <el-button type="primary" size="small" @click="handleClick('log')">查询</el-button>
               </div>
               <div class="time-right">
                 日志条数：<span>5500000</span>条
@@ -52,28 +55,30 @@
                     <span>时间：</span>
                     <el-date-picker
                       size="small"
-                      v-model="dataTimeRsu"
+                      v-model="dataTime_rsu"
                       type="datetimerange"
                       range-separator="至"
                       start-placeholder="开始日期"
                       end-placeholder="结束日期"
+                      format="yyyy-MM-dd HH:mm:ss"
+                      value-format="yyyy-MM-dd HH:mm:ss"
                     >
                     </el-date-picker>
                   </li>
                   <li>
                     <span>日志标识：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="rsu.rsuId" size="small" />
                   </li>
                   <li>
                     <span>主备：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="rsu.types" size="small" />
                   </li>
                   <li>
                     <span>车牌号：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="rsu.plateNo" size="small" />
                   </li>
                 </ul>
-                <el-button type="primary" size="small">查询</el-button>
+                <el-button type="primary" size="small" @click="handleClick('rsu')">查询</el-button>
               </div>
               <div class="time-right">
                 日志条数：<span>5500000</span>条
@@ -92,28 +97,30 @@
                     <span>时间：</span>
                     <el-date-picker
                       size="small"
-                      v-model="dataTimeCar"
+                      v-model="dataTime_car"
                       type="datetimerange"
                       range-separator="至"
                       start-placeholder="开始日期"
                       end-placeholder="结束日期"
+                      format="yyyy-MM-dd HH:mm:ss"
+                      value-format="yyyy-MM-dd HH:mm:ss"
                     >
                     </el-date-picker>
                   </li>
                   <li>
                     <span>日志标识：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="car.equipId" size="small" />
                   </li>
                   <li>
                     <span>路段id：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="car.roadId" size="small" />
                   </li>
                   <li>
                     <span>车辆类型：</span>
-                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                    <el-input placeholder="请输入搜索内容" v-model="car.carType" size="small" />
                   </li>
                 </ul>
-                <el-button type="primary" size="small">查询</el-button>
+                <el-button type="primary" size="small" @click="handleClick('car')">查询</el-button>
               </div>
               <div class="time-right">
                 日志条数：<span>5500000</span>条
@@ -155,7 +162,7 @@
 
 <script>
 
-import { header, searchSysLogList } from './config'
+import { header, tabParams } from './config'
 import { getLogList, getRsuList, getCarList } from './service'
 
 export default {
@@ -164,46 +171,48 @@ export default {
   data () {
     return {
       activeName: 'log',
-      search: '',
-      dataTimeLog: ['', ''],
-      dataTimeRsu: ['', ''],
-      dataTimeCar: ['', ''],
-      tableData: searchSysLogList,
+      dataTime_log: '',
+      dataTime_rsu: '',
+      dataTime_car: '',
+      tableData: [],
       header: header['logHeader'],
       requestTime: '--',
-      log: {
-        startTime: '',
-        endTime: '',
-        rsuId: '',
-        doorFrame: '',
-        sysName: '',
-      },
-      rsu: {
-        startTime: '',
-        endTime: '',
-        rsuId: '',
-        types: '',
-        plateNo: '',
-      },
-      car: {
-        startTime: '',
-        endTime: '',
-        equipId: '',
-        roadId: '',
-        carType: '',
-      },
+      log: { ...tabParams.log },
+      rsu: { ...tabParams.rsu },
+      car: { ...tabParams.car },
     }
   },
   methods: {
-    handleClick (tab) {
-      console.log(tab.name)
+    handleClickTab (tab) {
+      let name = tab.name
+      console.log(1, name)
+
+      this[name] = { ...tabParams[name] }
+      console.log(2, tabParams[name])
+      this[`dataTime_${name}`] = ''
+
+      this.activeName = name
       this.header = header[`${tab.name}Header`]
-      if (tab === 'car') {
-        this.requestCarList({})
-      } else if (tab === 'rsu') {
-        this.requestRsuList({})
+      this[name].startTime = ''
+      this[name].endTime = ''
+
+      if (name === 'car') {
+        this.requestCarList(this.car)
+      } else if (name === 'rsu') {
+        this.requestRsuList(this.rsu)
       } else {
-        this.requestLogList({})
+        this.requestLogList(this.log)
+      }
+    },
+    handleClick (type) {
+      this[type].startTime = this[`dataTime_${type}`] ? this[`dataTime_${type}`][0] : ''
+      this[type].endTime = this[`dataTime_${type}`] ? this[`dataTime_${type}`][1] : ''
+      if (type === 'car') {
+        this.requestCarList(this.car)
+      } else if (type === 'rsu') {
+        this.requestRsuList(this.rsu)
+      } else {
+        this.requestLogList(this.log)
       }
     },
     handleEdit (index, row) {
@@ -212,24 +221,24 @@ export default {
     },
     async requestLogList (params) {
       let res = await getLogList(params)
-      if (res.code === 'code') {
-        let { ms, pageList } = res.list
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
         this.tableData = pageList
         this.requestTime = ms + 'ms'
       }
     },
     async requestRsuList (params) {
       let res = await getRsuList(params)
-      if (res.code === 'code') {
-        let { ms, pageList } = res.list
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
         this.tableData = pageList
         this.requestTime = ms + 'ms'
       }
     },
     async requestCarList (params) {
       let res = await getCarList(params)
-      if (res.code === 'code') {
-        let { ms, pageList } = res.list
+      if (res.code === 'success') {
+        let { ms, pageList } = res.data
         this.tableData = pageList
         this.requestTime = ms + 'ms'
       }
@@ -267,7 +276,7 @@ export default {
             display: inline-block;
             li{
               display: inline-block;
-              width: 250px;
+              width: 230px;
               margin-right: 15px;
               // border: 1px solid red;
               >span{
@@ -278,7 +287,7 @@ export default {
               }
               .el-input {
                 display: inline-block;
-                width: 180px;
+                width: 160px;
               }
             }
           }
