@@ -2,58 +2,162 @@
   <div id="log-list">
     <div class="tabs-list">
       <el-tabs type="border-card" v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane label="系统日志" name="log"></el-tab-pane>
-        <el-tab-pane label="RSU信息日志" name="rsu"></el-tab-pane>
-        <el-tab-pane label="车辆信息日志" name="car"></el-tab-pane>
+        <el-tab-pane label="系统日志" name="log">
+          <div class="searchs">
+            <div class="search-time">
+              <div class="searchTime-box">
+                <ul>
+                  <li>
+                    <span>时间：</span>
+                    <el-date-picker
+                      size="small"
+                      v-model="dataTimeLog"
+                      type="datetimerange"
+                      range-separator="至"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期"
+                    >
+                    </el-date-picker>
+                  </li>
+                  <li>
+                    <span>日志标识：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                  <li>
+                    <span>门架编号：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                  <li>
+                    <span>系统名称：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                </ul>
+                <el-button type="primary" size="small">查询</el-button>
+              </div>
+              <div class="time-right">
+                日志条数：<span>5500000</span>条
+                &nbsp;&nbsp;&nbsp;查询时间：<span>{{requestTime}}</span>
+              </div>
+            </div>
+          </div>
+
+        </el-tab-pane>
+
+        <el-tab-pane label="RSU信息日志" name="rsu">
+          <div class="searchs">
+            <div class="search-time">
+              <div class="searchTime-box">
+                <ul>
+                  <li>
+                    <span>时间：</span>
+                    <el-date-picker
+                      size="small"
+                      v-model="dataTimeRsu"
+                      type="datetimerange"
+                      range-separator="至"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期"
+                    >
+                    </el-date-picker>
+                  </li>
+                  <li>
+                    <span>日志标识：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                  <li>
+                    <span>主备：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                  <li>
+                    <span>车牌号：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                </ul>
+                <el-button type="primary" size="small">查询</el-button>
+              </div>
+              <div class="time-right">
+                日志条数：<span>5500000</span>条
+                &nbsp;&nbsp;&nbsp;查询时间：<span>{{requestTime}}</span>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
+
+        <el-tab-pane label="车辆信息日志" name="car">
+          <div class="searchs">
+            <div class="search-time">
+              <div class="searchTime-box">
+                <ul>
+                  <li>
+                    <span>时间：</span>
+                    <el-date-picker
+                      size="small"
+                      v-model="dataTimeCar"
+                      type="datetimerange"
+                      range-separator="至"
+                      start-placeholder="开始日期"
+                      end-placeholder="结束日期"
+                    >
+                    </el-date-picker>
+                  </li>
+                  <li>
+                    <span>日志标识：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                  <li>
+                    <span>路段id：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                  <li>
+                    <span>车辆类型：</span>
+                    <el-input placeholder="请输入搜索内容" v-model="search" size="small" />
+                  </li>
+                </ul>
+                <el-button type="primary" size="small">查询</el-button>
+              </div>
+              <div class="time-right">
+                日志条数：<span>5500000</span>条
+                &nbsp;&nbsp;&nbsp;查询时间：<span>{{requestTime}}</span>
+              </div>
+            </div>
+          </div>
+        </el-tab-pane>
       </el-tabs>
-      <div class="search-all">
+      <!-- <div class="search-all">
         <div class="search-box">
           <el-input placeholder="请输入搜索内容" v-model="search" size="small">
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
-      </div>
+      </div> -->
     </div>
 
     <div class="table-list">
-      <div class="searchs">
-        <div class="search-time">
-          <div class="searchTime-box">
-            <span>时间段：</span>
-            <el-date-picker
-              size="small"
-              v-model="dataTime"
-              type="datetimerange"
-              range-separator="至"
-              start-placeholder="开始日期"
-              end-placeholder="结束日期"
-            >
-            </el-date-picker>
-          </div>
-          <div class="time-right">
-            日志条数：<span>5500000</span>条
-            &nbsp;&nbsp;&nbsp;查询时间：<span>1.5</span>s
-          </div>
-        </div>
-      </div>
       <el-table :data="tableData" style="width: 100%" stripe>
-        <el-table-column prop="rsuId" label="rsu标识" width="80">
+        <el-table-column
+          v-for="(item, index) in header"
+          :key="item+index"
+          :prop="item.prop"
+          :label="item.label"
+          >
         </el-table-column>
-        <el-table-column prop="roadId" label="门架标识" width="80">
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button
+              type="primary" plain size="mini"
+              @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+          </template>
         </el-table-column>
-        <el-table-column prop="doorFrame" label="桩号"> </el-table-column>
-        <el-table-column prop="sysName" label="系统名称"> </el-table-column>
-        <el-table-column prop="level" label="日志级别"> </el-table-column>
-        <el-table-column prop="methodName" label="方法名称"> </el-table-column>
-        <el-table-column prop="requestUrl" label="请求地址"> </el-table-column>
-        <el-table-column prop=" requestTime" label="耗时"> </el-table-column>
-        <el-table-column prop=" happenTime" label="发生时间"> </el-table-column>
       </el-table>
     </div>
   </div>
 </template>
 
 <script>
+
+import { header, searchSysLogList } from './config'
+import { getLogList, getRsuList, getCarList } from './service'
+
 export default {
   name: 'LogList',
   components: {},
@@ -61,127 +165,79 @@ export default {
     return {
       activeName: 'log',
       search: '',
-      dataTime: ['', ''],
-      tableData: [
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-        {
-          rsuId: '01',
-          roadId: '001',
-          doorFrame: 'r门架',
-          sysName: 'rsu交易系统',
-          level: '1级',
-          methodName: 'CarNumber',
-          requestUrl: '/rest/carnumber/list',
-          requestTime: '0.9s',
-          happenTime: '2019-12-12 15:50:00',
-        },
-      ],
+      dataTimeLog: ['', ''],
+      dataTimeRsu: ['', ''],
+      dataTimeCar: ['', ''],
+      tableData: searchSysLogList,
+      header: header['logHeader'],
+      requestTime: '--',
+      log: {
+        startTime: '',
+        endTime: '',
+        rsuId: '',
+        doorFrame: '',
+        sysName: '',
+      },
+      rsu: {
+        startTime: '',
+        endTime: '',
+        rsuId: '',
+        types: '',
+        plateNo: '',
+      },
+      car: {
+        startTime: '',
+        endTime: '',
+        equipId: '',
+        roadId: '',
+        carType: '',
+      },
     }
   },
   methods: {
     handleClick (tab) {
       console.log(tab.name)
+      this.header = header[`${tab.name}Header`]
+      if (tab === 'car') {
+        this.requestCarList({})
+      } else if (tab === 'rsu') {
+        this.requestRsuList({})
+      } else {
+        this.requestLogList({})
+      }
+    },
+    handleEdit (index, row) {
+      console.log(index)
+      console.log(row)
+    },
+    async requestLogList (params) {
+      let res = await getLogList(params)
+      if (res.code === 'code') {
+        let { ms, pageList } = res.list
+        this.tableData = pageList
+        this.requestTime = ms + 'ms'
+      }
+    },
+    async requestRsuList (params) {
+      let res = await getRsuList(params)
+      if (res.code === 'code') {
+        let { ms, pageList } = res.list
+        this.tableData = pageList
+        this.requestTime = ms + 'ms'
+      }
+    },
+    async requestCarList (params) {
+      let res = await getCarList(params)
+      if (res.code === 'code') {
+        let { ms, pageList } = res.list
+        this.tableData = pageList
+        this.requestTime = ms + 'ms'
+      }
     },
   },
-  created () {},
+  created () {
+    this.requestLogList({})
+  },
 }
 </script>
 
@@ -202,6 +258,46 @@ export default {
   }
   .tabs-list {
     position: relative;
+    .searchs {
+      padding: 20px 2px;
+      .search-time {
+        .searchTime-box {
+          margin-bottom: 30px;
+          ul {
+            display: inline-block;
+            li{
+              display: inline-block;
+              width: 250px;
+              margin-right: 15px;
+              // border: 1px solid red;
+              >span{
+                font-size: 14px;
+              }
+              &:first-child{
+                width: 450px;
+              }
+              .el-input {
+                display: inline-block;
+                width: 180px;
+              }
+            }
+          }
+          .el-button{
+            float: right;
+          }
+        }
+        .time-right {
+          float: right;
+          font-size: 12px;
+          color: #c0c4cc;
+          margin: 10px 0;
+          text-align: right;
+          span {
+            font-size: 16px;
+          }
+        }
+      }
+    }
     .el-tabs--border-card {
       background: transparent;
       .el-tabs__header {
@@ -217,9 +313,9 @@ export default {
         }
       }
     }
-    .el-tabs__content {
-      display: none;
-    }
+    // .el-tabs__content {
+    //   display: none;
+    // }
     .el-tabs--border-card {
       border: 1px solid transparent;
     }
@@ -271,24 +367,6 @@ export default {
     .el-table--group::after,
     .el-table::before {
       background: transparent;
-    }
-    .searchs {
-      padding: 15px;
-      .search-time {
-        .searchTime-box {
-          display: inline-block;
-        }
-        .time-right {
-          float: right;
-          font-size: 12px;
-          color: #c0c4cc;
-          margin: 10px 0;
-          text-align: right;
-          span {
-            font-size: 16px;
-          }
-        }
-      }
     }
   }
 }

@@ -10,7 +10,7 @@
         {{ item.name }}
       </li>
     </ul>
-    <h1>收费站车道监测系统</h1>
+    <h1>日志监测系统</h1>
     <div class="head-right">
       <el-badge :value="99" :hidden="false" :max="99" class="badge-content">
         <img src="/static/img/layout/info.png" />
