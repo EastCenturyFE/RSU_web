@@ -1,99 +1,181 @@
 <template>
   <div id="monitor">
-    <div class="amap-demo" id="amapContainer">
-    </div>
+    <div class="amap-demo" id="amapContainer"></div>
 
     <div class="page-container">
       <div class="car-container">
         <!-- <div v-for="(item, i) in carData" :key="i">
-        </div> -->
+        </div>-->
         <div class="car-item">
           <div class="block-style"></div>
           <span class="title">系统日志总数</span>
           <span class="value">
-            125.25<sup>w</sup>
+            <number-roll :number="number" />
+            <sup>w</sup>
           </span>
           <div class="img-container">
-            <img draggable="false" src="/static/Monitor/up.png" alt="" />
+            <img draggable="false" src="/static/Monitor/up.png" alt />
           </div>
         </div>
         <div class="car-item">
           <div class="block-style"></div>
           <span class="title">RSU交易额</span>
           <span class="value">
-            125.25<sup>w</sup>
+            <number-roll :number="251.25" />
+            <sup>w</sup>
           </span>
           <div class="img-container">
-            <img draggable="false" src="/static/Monitor/up.png" alt="" />
+            <img draggable="false" src="/static/Monitor/up.png" alt />
           </div>
         </div>
         <div class="car-item">
           <div class="block-style"></div>
           <span class="title">车辆总数</span>
           <span class="value">
-            125.25<sup>w</sup>
+            <number-roll :number="200.25" />
+            <sup>w</sup>
           </span>
           <div class="img-container">
-            <img draggable="false" src="/static/Monitor/up.png" alt="" />
+            <img draggable="false" src="/static/Monitor/up.png" alt />
           </div>
         </div>
       </div>
 
       <div class="list-container">
         <div class="list-item">
-          <div class="tabs-container">
-            车辆类型分析
-          </div>
+          <div class="tabs-container">车辆类型分析</div>
           <div class="table-container">
-            <ul>
-              <li class="table-header">
-                <div>路段名称</div>
-                <div>类型</div>
-                <div>数量</div>
-              </li>
-            </ul>
-            <ul class="table-data">
-              <li v-for="(item, i) in tableDta" :class="[animation ? `li-animation-${i}` : '']" :key="i">
-                <div>{{item.name}}</div>
-                <div>{{item.aa}}</div>
-                <div>{{item.type}}</div>
-              </li>
-            </ul>
+            <div class="table-header">
+              <table>
+                <colgroup>
+                  <col style="width: 150px; min-width: 150px;" />
+                  <col style="width: 150px; min-width: 150px;" />
+                  <col style="width: 150px; min-width: 150px;" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>路段名称</th>
+                    <th>类型</th>
+                    <th>数量</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="table-content">
+              <table :class="[animation ? `table-animation` : '']">
+                <colgroup>
+                  <col style="width: 150px; min-width: 150px;" />
+                  <col style="width: 150px; min-width: 150px;" />
+                  <col style="width: 150px; min-width: 150px;" />
+                </colgroup>
+                <tbody>
+                  <tr v-for="(item, i) in tableDta" :key="i">
+                    <td>{{item.name}}</td>
+                    <td>{{item.aa}}</td>
+                    <td>{{item.type}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
         <div class="list-item">
-           <div class="tabs-container">
-            车辆类型分析
-          </div>
+          <div class="tabs-container">车辆类型分析</div>
           <div class="table-container">
-            <ul>
-              <li class="table-header">
-                <div>路段名称</div>
-                <div>类型</div>
-                <div>数量</div>
-              </li>
-            </ul>
-            <ul class="table-data">
-              <li v-for="(item, i) in tableDta" :class="[animation ? `li-animation-${i}` : '']" :key="i">
-                <div>{{item.name}}</div>
-                <div>{{item.aa}}</div>
-                <div>{{item.type}}</div>
-              </li>
-            </ul>
+            <div class="table-header">
+              <table>
+                <colgroup>
+                  <col style="width: 100px; min-width: 100px;" />
+                  <col style="width: 100px; min-width: 100px;" />
+                  <col style="width: 150px; min-width: 150px;" />
+                </colgroup>
+                <thead>
+                  <tr>
+                    <th>路段名称</th>
+                    <th>类型</th>
+                    <th>数量</th>
+                  </tr>
+                </thead>
+              </table>
+            </div>
+            <div class="table-content">
+              <table :class="[animation ? `table-animation` : '']">
+                <colgroup>
+                  <col style="width: 100px; min-width: 100px;" />
+                  <col style="width: 100px; min-width: 100px;" />
+                  <col style="width: 150px; min-width: 150px;" />
+                </colgroup>
+                <tbody>
+                  <tr
+                    v-for="(item, i) in tableDta"
+                    :class="[animation ? `li-animation-${i}` : '']"
+                    :key="i"
+                  >
+                    <td>{{item.name}}</td>
+                    <td>{{item.aa}}</td>
+                    <td>{{item.type}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="btn-container">
+      <div class="btn-container" style="position: fixed;
+  top: 500px;
+  left: 50%;">
         <el-button @click="handleClick" type="primary">模拟动画按钮</el-button>
       </div>
-    </div>
 
+      <div class="rsu-container">
+        <div class="tabs-container">RSU交易额分析</div>
+        <div class="table-container">
+          <div class="table-header">
+            <table>
+              <colgroup>
+                <col style="width: 150px; min-width: 150px;" />
+                <col style="width: 150px; min-width: 150px;" />
+                <col style="width: 150px; min-width: 150px;" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th>路段名称</th>
+                  <th>类型</th>
+                  <th>数量</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+          <div class="table-content">
+            <table :class="[animation ? `table-animation` : '']">
+              <colgroup>
+                <col style="width: 150px; min-width: 150px;" />
+                <col style="width: 150px; min-width: 150px;" />
+                <col style="width: 150px; min-width: 150px;" />
+              </colgroup>
+              <tbody>
+                <tr
+                  v-for="(item, i) in tableDta"
+                  :class="[animation ? `li-animation-${i}` : '']"
+                  :key="i"
+                >
+                  <td>{{item.name}}</td>
+                  <td>{{item.aa}}</td>
+                  <td>{{item.type}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap'
+import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap';
+import NumberRoll from './components/numberRoll';
 
 const moniData = [
   {
@@ -146,6 +228,7 @@ const moniData = [
 export default {
   name: 'MyTask',
   components: {
+    NumberRoll,
   },
   data () {
     return {
@@ -197,6 +280,7 @@ export default {
           type: 'ahah',
         },
       ],
+      number: 215.2,
     }
   },
   computed: {
@@ -206,29 +290,30 @@ export default {
   },
   methods: {
     handleClick () {
-      if (this.animation) {
-        return
-      }
-      this.tableDta.push(...moniData)
-      setTimeout(() => {
-        this.tableDta = [...this.tableDta.slice(9, this.tableDta.length)]
-      }, 3000)
+      // if (this.animation) {
+      //   return
+      // }
+      // this.tableDta.push(...moniData)
+      // setTimeout(() => {
+      //   this.tableDta = [...this.tableDta.slice(9, this.tableDta.length)]
+      // }, 3000)
+      this.number = 1200
     },
   },
   created () {
     lazyAMapApiLoaderInstance.load().then(() => {
       /* eslint-disable */
-      this.map = new AMap.Map('amapContainer', {
+      this.map = new AMap.Map("amapContainer", {
         zoom: 11.8,
         zooms: [10, 17],
         enter: [114.425081, 34.554875],
         mapStyle: `amap://styles/${process.env.VUE_APP_MAP_STYLE}`,
-        viewMode: '3D',
+        viewMode: "3D",
         pitch: 50,
         rotation: 25,
-        skyColor: 'red',
-        showBuildingBlock: false,
-      })
+        skyColor: "red",
+        showBuildingBlock: false
+      });
       /* eslint-enable */
     })
   },
@@ -236,55 +321,102 @@ export default {
 </script>
 
 <style lang="less" scoped>
-#monitor{
+#monitor {
   min-height: calc(100vh - 55px);
   height: 100%;
   // -webkit-user-select: none;
   //   -moz-user-select: none;
   //   -ms-user-select: none;
   //   user-select: none;
-  .amap-demo{
+  .amap-demo {
     height: auto;
     min-height: calc(100vh - 55px);
   }
+  // 表格公用样式
+  .table-list {
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    .table-header {
+      background: rgba(29, 67, 159, 0.8);
+    }
+    .table-content {
+      background: rgba(0, 8, 47, 0.6);
+    }
+    .table-content {
+      overflow: hidden;
+      table {
+        margin-top: 0px;
+      }
+      .table-animation {
+        transition: margin 1.5s;
+        margin-top: -328px;
+      }
+    }
+    tr {
+      width: 100%;
+      text-align: center;
+      line-height: 40px;
+      border-bottom: 1px solid rgb(17, 44, 113);
+      font-size: 15px;
+    }
+  }
 
-  .page-container{
+  // 列表上方title样式
+  .list-tite {
+    pointer-events: auto;
+    width: 170px;
+    height: 40px;
+    background-image: url("/static/Monitor/tabs-back.png");
+    background-size: cover;
+    text-align: center;
+    line-height: 30px;
+    font-size: 18px;
+    color: #00ebff;
+    overflow: hidden;
+    transform: skewX(-20deg);
+    margin-bottom: 6px;
+  }
+
+  .page-container {
     position: absolute;
     z-index: 999;
     top: 55px;
     width: 100%;
+    min-width: 1400px;
     height: calc(100vh - 55px);
     pointer-events: none;
     padding: 0 50px;
     box-sizing: border-box;
   }
 
-  .car-container{
+  .car-container {
     height: 90px;
     width: 1346px;
     margin: 0 auto;
-    margin-top: 20px;
+    margin-top: 15px;
     display: grid;
     grid-template-columns: repeat(3, 418px);
     grid-template-rows: 90px;
     grid-column-gap: 48px;
 
-    .car-item{
-      pointer-events:auto;
-      background: rgba(10, 24, 67, .8);
+    .car-item {
+      pointer-events: auto;
+      background: rgba(10, 24, 67, 0.8);
       border: 1px solid #0c3188;
       border-radius: 2px;
       display: flex;
       line-height: 90px;
 
-      .block-style{
+      .block-style {
         width: 20px;
         height: 14px;
         margin-left: 30px;
         position: relative;
 
-        &::after{
-          content: '';
+        &::after {
+          content: "";
           position: absolute;
           top: 38px;
           left: 0;
@@ -296,25 +428,25 @@ export default {
         }
       }
 
-      .title{
+      .title {
         font-size: 16px;
-        color: rgb(240,237,237);
+        color: rgb(240, 237, 237);
         min-width: 130px;
         text-align: center;
       }
 
-      .value{
+      .value {
         font-size: 36px;
         color: #00ebff;
         position: relative;
-        sup{
+        sup {
           font-size: 10px;
           position: absolute;
-          right: -6px;
+          right: -10px;
           top: -12px;
         }
-        &::before{
-          content: '';
+        &::before {
+          content: "";
           display: inline-block;
           position: absolute;
           top: 70px;
@@ -323,8 +455,8 @@ export default {
           background: #00ebff;
         }
 
-        &::after{
-          content: '';
+        &::after {
+          content: "";
           position: absolute;
           right: 0;
           top: 68px;
@@ -335,80 +467,55 @@ export default {
         }
       }
 
-      .img-container{
+      .img-container {
         margin-left: 40px;
-        img{
+        img {
           vertical-align: middle;
         }
       }
-
     }
   }
 
-  .list-container{
-    height: 440px;
+  .list-container {
+    height: 424px;
     display: flex;
     justify-content: space-between;
-    margin-top: 30px;
-    .list-item{
+    margin-top: 15px;
+    .list-item {
       width: 504px;
       height: 100%;
-      .tabs-container{
-        pointer-events: auto;
-        width: 170px;
-        height: 40px;
-        background-image: url('/static/Monitor/tabs-back.png');
-        background-size: cover;
-        text-align: center;
-        line-height: 30px;
-        font-size: 18px;
-        color: #00ebff;
-        overflow: hidden;
-        transform: skewX(-20deg);
+      .tabs-container {
+        .list-tite;
       }
 
-      .table-container{
+      .table-container {
         pointer-events: auto;
-        margin-top: 18px;
         height: 366px;
-        background: rgba(0,8,47, .6);
         overflow: hidden;
 
-        table{
-          width: 100%;
-        }
-        li{
-          width: 100%;
-          display: flex;
-          height: 41px;
-          line-height: 40px;
-          border-bottom: 1px solid rgb(17, 44, 113);
-          box-sizing: border-box;
-        }
-        .table-header{
-          background: rgba(29,67,159, .8);
-        }
-        .table-data{
-          height: 326px;
-          overflow: hidden;
-        }
-        li > div {
-          height: 100%;
-          flex-grow: 1;
-          text-align: center;
-          font-size: 15px;
-          overflow: hidden;
-        }
-
-        .li-animation-0{
-          transition: margin 1.5s;
-          margin-top: -328px
-        }
+        .table-list;
       }
     }
   }
-  .btn-container{
+  .btn-container {
     pointer-events: auto;
+  }
+
+  .rsu-container {
+    height: 350px;
+    // background: red;
+    .tabs-container {
+      .list-tite;
+    }
+
+    .table-container {
+      pointer-events: auto;
+      height: 326px;
+      width: 100%;
+      overflow: hidden;
+
+      .table-list;
+    }
   }
 }
 </style>
