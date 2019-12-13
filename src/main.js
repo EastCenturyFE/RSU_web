@@ -9,34 +9,12 @@ import router from '@/router'
 
 import directive from '@/directive'
 
-import {
-  Table,
-  TableColumn,
-  DatePicker,
-  Input,
-  Tabs,
-  TabPane,
-  Menu,
-  Submenu,
-  MenuItem,
-  MenuItemGroup,
-  Badge,
-} from 'element-ui'
+import element from './element'
 import 'element-ui/lib/theme-chalk/index.css'
 
 import VueAMap from 'vue-amap'
-Vue.use(Table)
-Vue.use(TableColumn)
-Vue.use(DatePicker)
-Vue.use(Input)
-Vue.use(TabPane)
-Vue.use(Tabs)
-Vue.use(Menu)
-Vue.use(Submenu)
-Vue.use(MenuItem)
-Vue.use(Badge)
-Vue.use(MenuItemGroup)
 Vue.use(VueAMap)
+Vue.use(element)
 
 VueAMap.initAMapApiLoader({
   key: '570d3c0a476dcf376edd5239e3629ed7',
