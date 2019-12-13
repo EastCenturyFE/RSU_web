@@ -33,5 +33,10 @@ export default {
   height: 100vh;
   background-image: linear-gradient(-45deg, #011c4c, #001c4d);
   overflow: auto;
+
+  .contain{
+    min-height: calc(100vh - 55px);
+    height: auto;
+  }
 }
 </style>
