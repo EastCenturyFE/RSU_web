@@ -1,5 +1,5 @@
 <template>
-  <div id="monitor" v-loading.fullscreen.lock="loading">
+  <div id="monitor">
     <div class="amap-demo" id="amapContainer"></div>
 
     <div class="page-container">
@@ -177,6 +177,8 @@
 import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap'
 import NumberRoll from './components/numberRoll'
 
+import { getCountLog } from './service.js'
+
 const moniData = [
   {
     name: 'moniData_name',
@@ -280,7 +282,7 @@ export default {
           type: 'ahah',
         },
       ],
-      number: 215.2,
+      number: 0,
       loding: false,
     }
   },
@@ -300,9 +302,8 @@ export default {
       // }, 3000)
       this.number = 1200
     },
-  },
-  created () {
-    lazyAMapApiLoaderInstance.load().then(() => {
+    initMap () {
+      lazyAMapApiLoaderInstance.load().then(() => {
       /* eslint-disable */
       this.map = new AMap.Map("amapContainer", {
         zoom: 11.8,
@@ -321,7 +322,18 @@ export default {
         this.loding = true
       });
       /* eslint-enable */
-    })
+      })
+    },
+    async initCarData () {
+      const { code, data } = await getCountLog()
+      if (code === 'success') {
+        this.number = data.aDouble * 1 / 10000
+      }
+    },
+  },
+  async created () {
+    this.initMap()
+    this.initCarData()
   },
 }
 </script>
@@ -331,10 +343,6 @@ export default {
   // min-height: calc(100vh - 55px);
   height: 930px;
   // height: 100%;
-  // -webkit-user-select: none;
-  //   -moz-user-select: none;
-  //   -ms-user-select: none;
-  //   user-select: none;
   .amap-demo {
     height: auto;
     height: 100%;

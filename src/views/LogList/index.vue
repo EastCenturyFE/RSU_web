@@ -182,7 +182,7 @@
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
+        <el-button type="primary" size="small" @click="dialogVisible = false">关 闭</el-button>
       </span>
     </el-dialog>
   </div>
@@ -427,7 +427,8 @@ export default {
 
       .el-textarea__inner{
         color: red;
-        background: rgba(255, 255, 255, .8);
+        background: #040833;
+        border-color: #040833;
       }
     }
   }
