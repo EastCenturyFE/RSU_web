@@ -3,7 +3,7 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-13 21:13:31
  * @LastEditors: YOYO 792611446@qq.com
- * @LastEditTime: 2019-12-13 21:18:52
+ * @LastEditTime: 2019-12-14 16:37:11
  */
 import request from '@/utils/request'
 
@@ -27,12 +27,12 @@ export async function getUploadCount () {
   return request.get('/etc/tupianshangchuan',)
 }
 
-// // successRate数据
-// export async function getCarDetail (params) {
-//   return request.get('/etc/getCarLogById', params)
-// }
+// carType数据
+export async function getCarType (params) {
+  return request.get('/etc/cheliangleixing', params)
+}
 
-// // successRate数据
-// export async function getCarDetail (params) {
-//   return request.get('/etc/getCarLogById', params)
-// }
+// cpurate数据
+export async function getCpuRate (params) {
+  return request.get('/etc/cpu', params)
+}

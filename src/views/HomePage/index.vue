@@ -8,8 +8,8 @@
       </div>
       <div class="box">
         <div><UploadCount /></div>
-        <div><UploadCount /></div>
-        <div><UploadCount /></div>
+        <div><CarType /></div>
+        <div><CpuRate /></div>
       </div>
     </div>
   </div>
@@ -21,6 +21,8 @@ import SuccessRate from './components/successRate'
 import ErrorTimes from './components/errorTimes'
 import TradeAmount from './components/tradeAmount'
 import UploadCount from './components/uploadCount'
+import CarType from './components/carType'
+import CpuRate from './components/cpuRate'
 
 export default {
   name: 'HomePage',
@@ -29,6 +31,8 @@ export default {
     ErrorTimes,
     TradeAmount,
     UploadCount,
+    CarType,
+    CpuRate,
   },
   data () {
     return {}
