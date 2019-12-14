@@ -156,7 +156,6 @@ export default {
       let res = await getUploadCount()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        console.log(ms)
         let upNunmsSumData = []
         let downNumsSumData = []
         let xAxisData = []

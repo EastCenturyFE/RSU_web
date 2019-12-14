@@ -1,5 +1,5 @@
 <template>
-  <div id="monitor">
+  <div id="monitor" v-loading.fullscreen.lock="loading">
     <div class="amap-demo" id="amapContainer"></div>
 
     <div class="page-container">
@@ -174,8 +174,8 @@
 </template>
 
 <script>
-import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap';
-import NumberRoll from './components/numberRoll';
+import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap'
+import NumberRoll from './components/numberRoll'
 
 const moniData = [
   {
@@ -281,6 +281,7 @@ export default {
         },
       ],
       number: 215.2,
+      loding: false,
     }
   },
   computed: {
@@ -314,6 +315,11 @@ export default {
         skyColor: "red",
         showBuildingBlock: false
       });
+
+
+      this.map.on('complete', () => {
+        this.loding = true
+      });
       /* eslint-enable */
     })
   },
@@ -322,15 +328,16 @@ export default {
 
 <style lang="less" scoped>
 #monitor {
-  min-height: calc(100vh - 55px);
-  height: 100%;
+  // min-height: calc(100vh - 55px);
+  height: 930px;
+  // height: 100%;
   // -webkit-user-select: none;
   //   -moz-user-select: none;
   //   -ms-user-select: none;
   //   user-select: none;
   .amap-demo {
     height: auto;
-    min-height: calc(100vh - 55px);
+    height: 100%;
   }
   // 表格公用样式
   .table-list {
@@ -350,7 +357,7 @@ export default {
         margin-top: 0px;
       }
       .table-animation {
-        transition: margin 1.5s;
+        transition: all 1.5s;
         margin-top: -328px;
       }
     }

@@ -10,14 +10,23 @@
     </ul>
     <h1>日志监测系统</h1>
     <div class="head-right">
-      <el-badge :value="99" :hidden="false" :max="99" class="badge-content">
-        <img src="/static/img/layout/info.png" />
-      </el-badge>
+      <el-dropdown @command="handleLogout">
+        <span class="el-dropdown-link">
+          <el-badge :value="99" :hidden="false" :max="99" class="badge-content">
+            <img src="/static/img/layout/info.png" />
+          </el-badge>
+        </span>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item command="logout">登 出</el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
     </div>
   </div>
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: 'TheHead',
   components: {},
@@ -32,9 +41,13 @@ export default {
     }
   },
   methods: {
+    ...mapActions(['pageLogout']),
     handleClick (path, index) {
       this.tabIndex = index
       this.$router.push(path)
+    },
+    handleLogout (command) {
+      this.pageLogout()
     },
   },
   created () {
@@ -102,6 +115,15 @@ export default {
     .el-badge__content.is-fixed {
       top: 10px;
     }
+  }
+}
+
+.el-dropdown-menu{
+  background: #f2f2f2;
+  border-color: #f2f2f2;
+
+  .popper__arrow::after{
+    border-bottom-color: #f2f2f2;
   }
 }
 </style>

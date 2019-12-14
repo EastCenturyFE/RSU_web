@@ -3,19 +3,25 @@ const ZipPlugin = require('zip-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 const path = require('path')
 
+// 河南东方世纪
+// const target = 'http://192.168.10.30:8888'
+
+// 鲲鹏培训
+const target = 'http://192.168.201.11:8888'
+
 // vue.config.js
 module.exports = {
   devServer: {
     proxy: {
       '/etc': {
-        target: 'http://192.168.10.30:8888',
+        target,
         onProxyRes: cookiePathRewriter,
         pathRewrite: {
           '^/etc': '/etc',
         },
       },
       '/resource': {
-        target: '192.168.10.30:8888',
+        target,
         onProxyRes: cookiePathRewriter,
         pathRewrite: {
           '^/resource': '/resource',

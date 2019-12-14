@@ -142,7 +142,7 @@
           :label="item.label"
           >
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" v-if="activeName === 'log'">
           <template slot-scope="scope">
             <el-button
               type="primary" plain size="mini"
@@ -151,6 +151,40 @@
         </el-table-column>
       </el-table>
     </div>
+
+    <el-dialog
+      title="异常详情"
+      :visible.sync="dialogVisible"
+      width="60%"
+      custom-class="dialog-container">
+      <div>
+        <div class="dialog-item">
+          <span class="title">异常状态:</span>
+          <el-input
+            type="textarea"
+            readonly
+            resize="none"
+            :rows="1"
+            placeholder="请输入内容"
+            v-model="dialogData.resultJson">
+          </el-input>
+        </div>
+        <div class="dialog-item">
+          <span class="title">异常信息:</span>
+          <el-input
+            type="textarea"
+            readonly
+            resize="none"
+            :rows="10"
+            placeholder="请输入内容"
+            v-model="dialogData.errorJson">
+          </el-input>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="dialogVisible = false">关 闭</el-button>
+      </span>
+    </el-dialog>
   </div>
 </template>
 
@@ -174,15 +208,15 @@ export default {
       log: { ...tabParams.log },
       rsu: { ...tabParams.rsu },
       car: { ...tabParams.car },
+      dialogVisible: false,
+      dialogData: {},
     }
   },
   methods: {
     handleClickTab (tab) {
       let name = tab.name
-      console.log(1, name)
 
       this[name] = { ...tabParams[name] }
-      console.log(2, tabParams[name])
       this[`dataTime_${name}`] = ''
 
       this.activeName = name
@@ -210,8 +244,8 @@ export default {
       }
     },
     handleEdit (index, row) {
-      console.log(index)
-      console.log(row)
+      this.dialogData = row
+      this.dialogVisible = true
     },
     async requestLogList (params) {
       let res = await getLogList(params)
@@ -370,6 +404,31 @@ export default {
     .el-table--group::after,
     .el-table::before {
       background: transparent;
+    }
+  }
+
+  .dialog-container{
+    background: #03173e;
+    .el-dialog__title{
+      color: #fff;
+    }
+
+    .dialog-item{
+      display: flex;
+      align-items: center;
+      .title{
+        color: #fff;
+        display: inline-block;
+        min-width: 80px;
+      }
+      &:not(:first-child) {
+        margin-top: 10px;
+      }
+
+      .el-textarea__inner{
+        color: red;
+        background: rgba(255, 255, 255, .8);
+      }
     }
   }
 }

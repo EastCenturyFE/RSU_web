@@ -17,7 +17,7 @@ export function appTokenLogin (params) {
 
 // session登录
 export function appSessionLogin () {
-  return request.post(restData.checkUserInfoUrl)
+  return request.get(restData.checkUserInfoUrl)
 }
 
 // 用于页面登录
@@ -35,7 +35,7 @@ export function pageLogin (params) {
 
 // 用于页面注销
 export function pageLogout () {
-  return request.post(restData.logoutUrl)
+  return request.get(restData.logoutUrl)
 }
 
 export function getServiceAreaData (params) {

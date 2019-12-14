@@ -142,7 +142,6 @@ export default {
       let res = await getTradeAmount()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        console.log(ms)
         let reqTotalSumData = []
         let xAxisData = []
         pageList.forEach(item => {

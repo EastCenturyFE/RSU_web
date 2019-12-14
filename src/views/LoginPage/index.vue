@@ -26,6 +26,7 @@
           <el-button
             class="login"
             @click="loginClickHandler"
+            :loading="loginLoading"
             >登录</el-button><!-- :loading="loginLoading" -->
         </div>
       </div>
@@ -38,7 +39,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from 'vuex'
+import { mapState, mapActions } from 'vuex'
 
 import { pages } from '@/config'
 
@@ -54,10 +55,8 @@ export default {
   },
   computed: mapState(['loaded', 'loginLoading']),
   methods: {
-    ...mapMutations(['getDicData']),
     ...mapActions(['pageLogin']),
     loginClickHandler () {
-      this.getDicData({ loginLoading: true })
       this.pageLogin({
         username: this.username,
         pwd: this.password,
@@ -95,7 +94,7 @@ export default {
   .section {
     width: 505px;
     height: 360px;
-    background: rgba(0,39,77,0.9);
+    background: rgba(0,39,77,0.8);
     position: absolute;
     top: 50%;
     left: 50%;

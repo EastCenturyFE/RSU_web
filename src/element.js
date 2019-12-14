@@ -5,28 +5,36 @@ import {
   Input,
   Tabs,
   TabPane,
-  Menu,
-  Submenu,
-  MenuItem,
-  MenuItemGroup,
+  // Menu,
+  // Submenu,
+  // MenuItem,
+  // MenuItemGroup,
   Badge,
   Button,
+  Dropdown,
+  DropdownMenu,
+  DropdownItem,
+  Loading,
+  Dialog,
 } from 'element-ui'
 
 const element = {
   install: function (Vue) {
     Vue.use(Table)
     Vue.use(Button)
-    Vue.use(TableColumn)
     Vue.use(DatePicker)
+    Vue.use(TableColumn)
     Vue.use(Input)
     Vue.use(TabPane)
     Vue.use(Tabs)
-    Vue.use(Menu)
-    Vue.use(Submenu)
-    Vue.use(MenuItem)
+    Vue.use(Dropdown)
+    Vue.use(DropdownMenu)
+    Vue.use(DropdownItem)
     Vue.use(Badge)
-    Vue.use(MenuItemGroup)
+    Vue.use(Loading.directive)
+    Vue.use(Dialog)
+
+    Vue.prototype.$loading = Loading.service
   },
 }
 

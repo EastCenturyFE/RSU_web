@@ -24,41 +24,8 @@ const Monitor = () =>
 const routes = [
   {
     path: '/',
-    component: IndexLayout,
-    meta: { hideInMenu: true },
-    redirect: '/home',
-    children: [
-      {
-        path: '/index',
-        name: 'loglist',
-        component: LogList,
-        meta: {
-          name: '事件列表',
-          title: '事件列表',
-          authority: false,
-        },
-      },
-      {
-        path: '/monitor',
-        component: Monitor,
-        meta: {
-          name: '统一监控',
-          title: '统一监控',
-          icon: 'uniteMonitor',
-          authority: false,
-        },
-      },
-      {
-        path: '/home',
-        component: HomePage,
-        meta: {
-          name: '首页',
-          title: '首页',
-          icon: pages.home.name,
-          authority: false,
-        },
-      },
-    ],
+    name: '/',
+    redirect: '/login',
   },
   {
     path: '/login',
@@ -69,6 +36,43 @@ const routes = [
       title: '登录',
       authority: false,
     },
+  },
+  {
+    path: '',
+    component: IndexLayout,
+    meta: { hideInMenu: true },
+    children: [
+      {
+        path: '/index',
+        name: 'loglist',
+        component: LogList,
+        meta: {
+          name: '事件列表',
+          title: '事件列表',
+          authority: true,
+        },
+      },
+      {
+        path: '/monitor',
+        component: Monitor,
+        meta: {
+          name: '统一监控',
+          title: '统一监控',
+          icon: 'uniteMonitor',
+          authority: true,
+        },
+      },
+      {
+        path: '/home',
+        component: HomePage,
+        meta: {
+          name: '首页',
+          title: '首页',
+          icon: pages.home.name,
+          authority: true,
+        },
+      },
+    ],
   },
   // {
   //   path: '/403',

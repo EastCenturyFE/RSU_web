@@ -11,6 +11,7 @@ import directive from '@/directive'
 
 import element from './element'
 import 'element-ui/lib/theme-chalk/index.css'
+// import ElementUI from 'element-ui'
 
 import VueAMap from 'vue-amap'
 Vue.use(VueAMap)
@@ -28,6 +29,14 @@ Vue.config.productionTip = false
 Object.entries(directive).forEach(
   ([key, value]) => void Vue.directive(key, value)
 )
+
+window.oncontextmenu = () => false
+
+window.onkeydown = function (e) {
+  // if (e.keyCode === 123) {
+  //   e.preventDefault()
+  // }
+}
 
 new Vue({
   router,

@@ -140,7 +140,6 @@ export default {
       let res = await getErrorTime()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        console.log(ms)
         let docCount = []
         let xAxisData = []
         pageList.forEach(item => {

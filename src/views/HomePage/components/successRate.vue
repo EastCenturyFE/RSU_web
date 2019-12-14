@@ -157,7 +157,6 @@ export default {
       let res = await getSuccessRate()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        console.log(ms)
         let successRateAVGData = []
         let tradingRateAVGData = []
         let xAxisData = []

@@ -31,10 +31,10 @@ export const restData = {
   checkLoginUrl: '/etc/login',
 
   // 用户注销登录接口地址
-  logoutUrl: '/rest/default/quit',
+  logoutUrl: '/etc/invalidateSession',
 
   // 获取用户信息(检查会话状态)的接口地址
-  checkUserInfoUrl: '/rest/default/user/info',
+  checkUserInfoUrl: '/etc/default/user/info',
 
   // 是否需要同步字典
   dictSyncEnabled: false,
