@@ -18,8 +18,8 @@
                       end-placeholder="结束日期"
                       format="yyyy-MM-dd HH:mm:ss"
                       value-format="yyyy-MM-dd HH:mm:ss"
-
-                    ><!-- value-format="timestamp" -->
+                    >
+                      <!-- value-format="timestamp" -->
                     </el-date-picker>
                   </li>
                   <li>
@@ -37,11 +37,12 @@
                 </ul>
                 <el-button type="primary" size="small" @click="handleClick('log')">查询</el-button>
               </div>
-              <div class="time-right">查询时间：<span>{{requestTime}}</span>
+              <div class="time-right">
+                查询时间：
+                <span>{{requestTime}}</span>
               </div>
             </div>
           </div>
-
         </el-tab-pane>
 
         <el-tab-pane label="RSU信息日志" name="rsu">
@@ -60,8 +61,7 @@
                       end-placeholder="结束日期"
                       format="yyyy-MM-dd HH:mm:ss"
                       value-format="yyyy-MM-dd HH:mm:ss"
-                    >
-                    </el-date-picker>
+                    ></el-date-picker>
                   </li>
                   <li>
                     <span>日志标识：</span>
@@ -78,7 +78,9 @@
                 </ul>
                 <el-button type="primary" size="small" @click="handleClick('rsu')">查询</el-button>
               </div>
-              <div class="time-right">查询时间：<span>{{requestTime}}</span>
+              <div class="time-right">
+                查询时间：
+                <span>{{requestTime}}</span>
               </div>
             </div>
           </div>
@@ -100,8 +102,7 @@
                       end-placeholder="结束日期"
                       format="yyyy-MM-dd HH:mm:ss"
                       value-format="yyyy-MM-dd HH:mm:ss"
-                    >
-                    </el-date-picker>
+                    ></el-date-picker>
                   </li>
                   <li>
                     <span>日志标识：</span>
@@ -118,7 +119,9 @@
                 </ul>
                 <el-button type="primary" size="small" @click="handleClick('car')">查询</el-button>
               </div>
-              <div class="time-right">查询时间：<span>{{requestTime}}</span>
+              <div class="time-right">
+                查询时间：
+                <span>{{requestTime}}</span>
               </div>
             </div>
           </div>
@@ -130,7 +133,7 @@
             <el-button slot="append" icon="el-icon-search"></el-button>
           </el-input>
         </div>
-      </div> -->
+      </div>-->
     </div>
 
     <div class="table-list">
@@ -140,13 +143,15 @@
           :key="item+index"
           :prop="item.prop"
           :label="item.label"
-          >
-        </el-table-column>
+        ></el-table-column>
         <el-table-column label="操作" v-if="activeName === 'log'">
           <template slot-scope="scope">
             <el-button
-              type="primary" plain size="mini"
-              @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+              type="primary"
+              plain
+              size="mini"
+              @click="handleEdit(scope.$index, scope.row)"
+            >查看</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -156,18 +161,19 @@
       title="异常详情"
       :visible.sync="dialogVisible"
       width="60%"
-      custom-class="dialog-container">
+      custom-class="dialog-container"
+    >
       <div>
-        <div class="dialog-item">
-          <span class="title">异常状态:</span>
+        <div class="dialog-item dialog-item-success">
+          <span class="title">正常信息:</span>
           <el-input
             type="textarea"
             readonly
             resize="none"
             :rows="1"
             placeholder="请输入内容"
-            v-model="dialogData.resultJson">
-          </el-input>
+            v-model="dialogData.resultJson"
+          ></el-input>
         </div>
         <div class="dialog-item">
           <span class="title">异常信息:</span>
@@ -177,8 +183,8 @@
             resize="none"
             :rows="10"
             placeholder="请输入内容"
-            v-model="dialogData.errorJson">
-          </el-input>
+            v-model="dialogData.errorJson"
+          ></el-input>
         </div>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -189,9 +195,8 @@
 </template>
 
 <script>
-
-import { header, tabParams } from './config'
-import { getLogList, getRsuList, getCarList } from './service'
+import { header, tabParams } from './config';
+import { getLogList, getRsuList, getCarList } from './service';
 
 export default {
   name: 'LogList',
@@ -217,12 +222,12 @@ export default {
       let name = tab.name
 
       this[name] = { ...tabParams[name] }
-      this[`dataTime_${name}`] = ''
+      this[`dataTime_${name}`] = '';
 
       this.activeName = name
       this.header = header[`${tab.name}Header`]
-      this[name].startTime = ''
-      this[name].endTime = ''
+      this[name].startTime = '';
+      this[name].endTime = '';
 
       if (name === 'car') {
         this.requestCarList(this.car)
@@ -233,8 +238,12 @@ export default {
       }
     },
     handleClick (type) {
-      this[type].startTime = this[`dataTime_${type}`] ? this[`dataTime_${type}`][0] : ''
-      this[type].endTime = this[`dataTime_${type}`] ? this[`dataTime_${type}`][1] : ''
+      this[type].startTime = this[`dataTime_${type}`]
+        ? this[`dataTime_${type}`][0]
+        : '';
+      this[type].endTime = this[`dataTime_${type}`]
+        ? this[`dataTime_${type}`][1]
+        : '';
       if (type === 'car') {
         this.requestCarList(this.car)
       } else if (type === 'rsu') {
@@ -252,7 +261,7 @@ export default {
       if (res.code === 'success') {
         let { ms, pageList } = res.data
         this.tableData = pageList
-        this.requestTime = ms + 'ms'
+        this.requestTime = ms + 'ms';
       }
     },
     async requestRsuList (params) {
@@ -260,7 +269,7 @@ export default {
       if (res.code === 'success') {
         let { ms, pageList } = res.data
         this.tableData = pageList
-        this.requestTime = ms + 'ms'
+        this.requestTime = ms + 'ms';
       }
     },
     async requestCarList (params) {
@@ -268,7 +277,7 @@ export default {
       if (res.code === 'success') {
         let { ms, pageList } = res.data
         this.tableData = pageList
-        this.requestTime = ms + 'ms'
+        this.requestTime = ms + 'ms';
       }
     },
   },
@@ -302,15 +311,15 @@ export default {
           margin-bottom: 30px;
           ul {
             display: inline-block;
-            li{
+            li {
               display: inline-block;
               width: 230px;
               margin-right: 15px;
               // border: 1px solid red;
-              >span{
+              > span {
                 font-size: 14px;
               }
-              &:first-child{
+              &:first-child {
                 width: 450px;
               }
               .el-input {
@@ -319,7 +328,7 @@ export default {
               }
             }
           }
-          .el-button{
+          .el-button {
             float: right;
           }
         }
@@ -407,16 +416,16 @@ export default {
     }
   }
 
-  .dialog-container{
+  .dialog-container {
     background: #03173e;
-    .el-dialog__title{
+    .el-dialog__title {
       color: #fff;
     }
 
-    .dialog-item{
+    .dialog-item {
       display: flex;
       align-items: center;
-      .title{
+      .title {
         color: #fff;
         display: inline-block;
         min-width: 80px;
@@ -425,10 +434,16 @@ export default {
         margin-top: 10px;
       }
 
-      .el-textarea__inner{
-        color: red;
+      .el-textarea__inner {
+        color: #f56c6c;
         background: #040833;
         border-color: #040833;
+      }
+    }
+
+    .dialog-item-success {
+      .el-textarea__inner {
+        color: #67c23a;
       }
     }
   }

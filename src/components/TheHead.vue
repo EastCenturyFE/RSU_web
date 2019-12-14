@@ -8,7 +8,7 @@
         :class="index === tabIndex ? 'active' : ''"
       >{{ item.name }}</li>
     </ul>
-    <h1>日志监测系统</h1>
+    <h1>日志监测系统{{roles}}</h1>
     <div class="head-right">
       <el-dropdown @command="handleLogout">
         <span class="el-dropdown-link">
@@ -25,20 +25,25 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex';
+
+const tableArray = [
+  { name: '首页', path: '/home', roles: ['admin', 'hndfsj'] },
+  { name: '检测模式', path: '/monitor', roles: ['admin', 'hndfsj'] },
+  { name: '业务模式', path: '/index', roles: ['admin'] },
+]
 
 export default {
   name: 'TheHead',
   components: {},
   data () {
     return {
-      tablist: [
-        { name: '首页', path: '/home' },
-        { name: '检测模式', path: '/monitor' },
-        { name: '业务模式', path: '/index' },
-      ],
+      tablist: [],
       tabIndex: 0,
     }
+  },
+  computed: {
+    ...mapState({ roles: 'roles' }),
   },
   methods: {
     ...mapActions(['pageLogout']),
@@ -49,11 +54,16 @@ export default {
     handleLogout (command) {
       this.pageLogout()
     },
+    initTab () {
+      this.tablist = tableArray.filter(val => val.roles.includes(this.roles))
+    },
   },
   created () {
     this.tabIndex = this.tablist.findIndex(
       val => val.path === this.$route.path
     )
+
+    this.initTab()
   },
 }
 </script>
@@ -118,11 +128,11 @@ export default {
   }
 }
 
-.el-dropdown-menu{
+.el-dropdown-menu {
   background: #f2f2f2;
   border-color: #f2f2f2;
 
-  .popper__arrow::after{
+  .popper__arrow::after {
     border-bottom-color: #f2f2f2;
   }
 }

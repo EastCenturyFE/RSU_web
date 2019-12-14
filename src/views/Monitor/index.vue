@@ -1,5 +1,11 @@
 <template>
-  <div id="monitor">
+  <div
+    id="monitor"
+    v-loading.fullscreen="loading"
+    element-loading-text="拼命加载中"
+    element-loading-spinner="el-icon-loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"
+  >
     <div class="amap-demo" id="amapContainer"></div>
 
     <div class="page-container">
@@ -174,10 +180,10 @@
 </template>
 
 <script>
-import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap'
-import NumberRoll from './components/numberRoll'
+import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap';
+import NumberRoll from './components/numberRoll';
 
-import { getCountLog } from './service.js'
+import { getCountLog } from './service.js';
 
 const moniData = [
   {
@@ -283,7 +289,7 @@ export default {
         },
       ],
       number: 0,
-      loding: false,
+      loading: false,
     }
   },
   computed: {
@@ -304,30 +310,47 @@ export default {
     },
     initMap () {
       lazyAMapApiLoaderInstance.load().then(() => {
-      /* eslint-disable */
-      this.map = new AMap.Map("amapContainer", {
-        zoom: 11.8,
-        zooms: [10, 17],
-        enter: [114.425081, 34.554875],
-        mapStyle: `amap://styles/${process.env.VUE_APP_MAP_STYLE}`,
-        viewMode: "3D",
-        pitch: 50,
-        rotation: 25,
-        skyColor: "red",
-        showBuildingBlock: false
-      });
+        this.loading = true
+        /* eslint-disable */
+        this.map = new AMap.Map("amapContainer", {
+          zoom: 11.8,
+          // zooms: [10, 17],
+          enter: [114.425081, 34.554875],
+          mapStyle: `amap://styles/${process.env.VUE_APP_MAP_STYLE}`,
+          viewMode: "3D",
+          pitch: 50,
+          rotation: 25,
+          skyColor: "red",
+          showBuildingBlock: false
+        });
 
+        this.map.on("complete", () => {
+          this.loading = false;
+        });
 
-      this.map.on('complete', () => {
-        this.loding = true
-      });
-      /* eslint-enable */
+        var path1 = [
+          [75.757904, 38.118117],
+          [97.375719, 24.598057],
+          [117.375719, 38.118117]
+        ];
+
+        const Polyline = new AMap.Polyline({
+          path: path1, // 设置线覆盖物路径
+          showDir: true,
+          strokeColor: "#ffffff", // 线颜色
+          strokeWeight: 10
+        });
+
+        const OverlayGroup = new AMap.OverlayGroup([Polyline]);
+
+        this.map.add(OverlayGroup);
+        /* eslint-enable */
       })
     },
     async initCarData () {
       const { code, data } = await getCountLog()
       if (code === 'success') {
-        this.number = data.aDouble * 1 / 10000
+        this.number = (data.aDouble * 1) / 10000
       }
     },
   },
@@ -341,7 +364,7 @@ export default {
 <style lang="less" scoped>
 #monitor {
   // min-height: calc(100vh - 55px);
-  height: 930px;
+  height: 920px;
   // height: 100%;
   .amap-demo {
     height: auto;

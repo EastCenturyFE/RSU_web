@@ -2,11 +2,15 @@
  * @Description:
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-12 15:57:58
- * @LastEditors: YOYO 792611446@qq.com
- * @LastEditTime: 2019-12-13 22:37:42
+ * @LastEditors: xiao xin (834529118@qq.com)
+ * @LastEditTime: 2019-12-14 18:14:11
  */
-import { restData } from '@/config'
-import { getPropVal } from '@/utils/objectUtil'
+import {
+  restData,
+} from '@/config'
+import {
+  getPropVal,
+} from '@/utils/objectUtil'
 
 /**
  * @description                     注入用户信息
@@ -19,7 +23,9 @@ function injectInfo (res) {
     const info = getRoleConfiguration(res)
 
     // 如果不合法就返回就结束注入用户信息
-    if (!info) { return false }
+    if (!info) {
+      return false
+    }
 
     const user = getUserInfo(info)
 
@@ -56,7 +62,7 @@ function getRoleConfiguration (info) {
   //   return false
   // }
 
-  return { aa: 12 }
+  return info.data
 }
 
 // 整理并获得 用户信息
