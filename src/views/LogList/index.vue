@@ -21,10 +21,10 @@
                       value-format="yyyy-MM-dd HH:mm:ss"
                     ></el-date-picker>
                   </li>
-                  <li>
+                  <!-- <li>
                     <span>日志标识：</span>
                     <el-input placeholder="请输入搜索内容" v-model="rsu.rsuId" size="small" />
-                  </li>
+                  </li> -->
                   <li>
                     <span>主备：</span>
                     <el-input placeholder="请输入搜索内容" v-model="rsu.types" size="small" />
@@ -65,10 +65,10 @@
                       value-format="yyyy-MM-dd HH:mm:ss"
                     ></el-date-picker>
                   </li>
-                  <li>
+                  <!-- <li>
                     <span>日志标识：</span>
                     <el-input placeholder="请输入搜索内容" v-model="car.equipId" size="small" />
-                  </li>
+                  </li> -->
                   <li>
                     <span>路段id：</span>
                     <el-input placeholder="请输入搜索内容" v-model="car.roadId" size="small" />
@@ -111,10 +111,10 @@
                       <!-- value-format="timestamp" -->
                     </el-date-picker>
                   </li>
-                  <li>
+                  <!-- <li>
                     <span>日志标识：</span>
                     <el-input placeholder="请输入搜索内容" v-model="log.rsuId" size="small" />
-                  </li>
+                  </li> -->
                   <li>
                     <span>门架编号：</span>
                     <el-input placeholder="请输入搜索内容" v-model="log.doorFrame" size="small" />

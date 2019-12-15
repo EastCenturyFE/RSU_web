@@ -92,7 +92,7 @@ export default {
           {
             type: 'value',
             position: 'left',
-            name: '(元)',
+            name: '(万元)',
             nameLocation: 'end',
             splitLine: {
               show: true,
@@ -168,7 +168,7 @@ export default {
         let xAxisData = []
         pageList.forEach(item => {
           let { reqTotalSum, key } = JSON.parse(item)
-          reqTotalSumData.push(reqTotalSum.value)
+          reqTotalSumData.push(reqTotalSum.value / 10000)
           xAxisData.push(key)
         })
         this.initChart(xAxisData, reqTotalSumData)

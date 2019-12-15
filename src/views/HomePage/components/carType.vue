@@ -91,7 +91,7 @@ export default {
           {
             type: "value",
             position: "left",
-            name: "(辆)",
+            name: "(万辆)",
             nameLocation: "end",
             splitLine: {
               show: true,
@@ -200,7 +200,7 @@ export default {
         let { ms, pageList } = res.data;
 
         const type = pageList.map(val => JSON.parse(val).key + "型");
-        const data = pageList.map(val => JSON.parse(val).doc_count);
+        const data = pageList.map(val => (JSON.parse(val).doc_count / 10000));
         this.ms = ms * 1 > 700 ? 610 : ms
 
         // xAxisData-横坐标数据，后边的都是serise里的data数据

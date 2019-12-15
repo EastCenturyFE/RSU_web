@@ -4,14 +4,19 @@ const logHeader = [{
   label: 'RSU标识',
   prop: 'rsuId',
 },
+// {
+//   label: '道路标识',
+//   prop: 'rsuId',
+// },
 {
-  label: '道路标识',
-  prop: 'rsuId',
+  label: '系统名称',
+  prop: 'sysName',
+  width: 120
 },
 {
   label: '门架标识',
   prop: 'doorFrame',
-  width: 180,
+  width: 200,
 },
 // {
 //   label: 'sysName',
@@ -20,27 +25,27 @@ const logHeader = [{
 {
   label: '日志级别',
   prop: 'level',
-  width: 90,
+  width: 110,
 },
 {
   label: '环境',
   prop: 'dev',
-  width: 90,
+  width: 110,
 },
 {
   label: '方法名称',
   prop: 'methodName',
-  width: 90,
+  width: 110,
 },
 {
   label: '请求地址',
   prop: 'requestUrl',
-  width: 180,
+  width: 200,
 },
 {
   label: '请求类型',
   prop: 'requestType',
-  width: 90,
+  width: 110,
 },
 {
   label: 'IP',
@@ -50,7 +55,7 @@ const logHeader = [{
 {
   label: '耗时(ms)',
   prop: 'requestTime',
-  width: 90,
+  width: 110,
 },
 {
   label: '创建时间',
@@ -200,6 +205,11 @@ const carHeader = [{
 {
   label: '车速(Km/h)',
   prop: 'speed',
+  width: 100
+},
+{
+  label: '车辆类型',
+  prop: 'carType',
   width: 100
 },
 {

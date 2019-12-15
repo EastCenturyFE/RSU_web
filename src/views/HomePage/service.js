@@ -3,7 +3,7 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-13 21:13:31
  * @LastEditors: xiao xin (834529118@qq.com)
- * @LastEditTime: 2019-12-16 00:54:42
+ * @LastEditTime: 2019-12-16 01:16:50
  */
 import request from '@/utils/request'
 
@@ -25,6 +25,23 @@ export async function getTradeAmount() {
 // uploadCount数据
 export async function getUploadCount() {
   const res = await request.get('/etc/tupianshangchuan', )
+  console.log(res)
+  if (res.code === 'success') {
+    // "{"key":"宁洛高速漯河至周口省界段","doc_count":3269914,"upNunmsSum":{"value":8.190142642E9},"downNumsSum":{"value":8.112914874E9}}"
+    res.data.pageList = res.data.pageList.map(val => {
+      const data = JSON.parse(val)
+      console.log(data)
+      return {
+        ...data,
+        upNunmsSum: {
+          value: (data.upNunmsSum.value / 10000).toFixed(2)
+        },
+        downNumsSum: {
+          value: (data.downNumsSum.value / 10000).toFixed(2)
+        }
+      }
+    })
+  }
   return res
 }
 

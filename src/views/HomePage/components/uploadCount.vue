@@ -91,7 +91,7 @@ export default {
           {
             type: 'value',
             position: 'left',
-            name: '(次)',
+            name: '(万次)',
             nameLocation: 'end',
             splitLine: {
               show: true,
@@ -181,8 +181,10 @@ export default {
         let upNunmsSumData = []
         let downNumsSumData = []
         let xAxisData = []
-        pageList.forEach(item => {
-          let { upNunmsSum, downNumsSum, key } = JSON.parse(item)
+
+        console.log(pageList)
+        pageList.forEach(({ upNunmsSum, downNumsSum, key }) => {
+          // let { upNunmsSum, downNumsSum, key } = JSON.parse(item)
           upNunmsSumData.push(upNunmsSum.value)
           downNumsSumData.push(downNumsSum.value)
           xAxisData.push(key)

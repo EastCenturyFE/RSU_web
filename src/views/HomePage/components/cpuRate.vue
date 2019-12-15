@@ -82,7 +82,7 @@ export default {
           {
             type: 'value',
             position: 'left',
-            name: '辆',
+            name: '(万辆)',
             nameLocation: 'end',
             splitLine: {
               show: true,
@@ -158,7 +158,7 @@ export default {
         this.ms = ms * 1 > 700 ? 610 : ms
 
         const xAxisData = pageList.map(val => val.name)
-        const data1 = pageList.map(val => val.sum)
+        const data1 = pageList.map(val => val.sum / 10000)
         this.initChart(xAxisData, data1)
       }
     },
