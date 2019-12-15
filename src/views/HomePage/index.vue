@@ -3,7 +3,7 @@
  * @Author: xiao xin (834529118@qq.com)
  * @Date: 2019-12-14 18:02:49
  * @LastEditors: xiao xin (834529118@qq.com)
- * @LastEditTime: 2019-12-15 14:23:19
+ * @LastEditTime: 2019-12-15 22:51:44
  -->
 <template>
   <div id="home-page">
@@ -67,7 +67,7 @@ export default {
     return {
       options: [
       {
-        value: 600,
+        value: 2600,
         label: '实时'
       },
       {

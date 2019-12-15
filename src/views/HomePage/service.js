@@ -3,7 +3,7 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-13 21:13:31
  * @LastEditors: xiao xin (834529118@qq.com)
- * @LastEditTime: 2019-12-15 19:20:25
+ * @LastEditTime: 2019-12-16 00:54:42
  */
 import request from '@/utils/request'
 
@@ -24,7 +24,8 @@ export async function getTradeAmount() {
 
 // uploadCount数据
 export async function getUploadCount() {
-  return request.get('/etc/tupianshangchuan', )
+  const res = await request.get('/etc/tupianshangchuan', )
+  return res
 }
 
 // carType数据

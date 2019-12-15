@@ -163,7 +163,7 @@ export default {
       let res = await getTradeAmount()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        this.ms = ms * 1
+        this.ms = ms * 1 > 700 ? 610 : ms
         let reqTotalSumData = []
         let xAxisData = []
         pageList.forEach(item => {

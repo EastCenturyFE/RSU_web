@@ -11,6 +11,7 @@ const logHeader = [{
 {
   label: '门架标识',
   prop: 'doorFrame',
+  width: 180,
 },
 // {
 //   label: 'sysName',
@@ -34,6 +35,7 @@ const logHeader = [{
 {
   label: '请求地址',
   prop: 'requestUrl',
+  width: 180,
 },
 {
   label: '请求类型',
@@ -53,6 +55,7 @@ const logHeader = [{
 {
   label: '创建时间',
   prop: 'createTime',
+  width: 180,
 },
 ]
 export const searchSysLogList = [{
@@ -82,50 +85,67 @@ const rsuHeader = [{
 {
   label: '主备',
   prop: 'types',
+  width: 60
+},
+{
+  label: '车牌号',
+  prop: 'plateNo',
+  width: 100
 },
 {
   label: 'cpu(%)',
   prop: 'cpu',
+  width: 100
 },
 {
   label: '内存(G)',
   prop: 'mem',
+  width: 100
 },
 {
   label: '负载(%)',
   prop: 'load',
+  width: 100
 },
 {
   label: 'tcp(ms)',
   prop: 'tcp',
+  width: 100
 },
 {
   label: '磁盘容量(G)',
   prop: 'size',
+  width: 110
 },
 {
   label: '上传数量(条)',
   prop: 'upNunms',
+  width: 120
 },
 {
   label: '下载数量(条)',
   prop: 'downNums',
+  width: 120
 },
 {
   label: '交易金额（元）',
   prop: 'reqTotal',
+  width: 140
 },
 {
   label: '设备成功率(%)',
   prop: 'successRate',
+  width: 140
 },
 {
   label: '交易成功率(%)',
   prop: 'tradingRate',
+  width: 140
 },
 {
   label: '创建时间',
   prop: 'createTime',
+  width: 180
 },
 ]
 export const rsuLogList = [{
@@ -158,11 +178,12 @@ const carHeader = [{
 {
   label: '出站id',
   prop: 'exitStationId',
+  width: 100
 },
-{
-  label: '出站时间',
-  prop: 'exitTime',
-},
+// {
+//   label: '出站时间',
+//   prop: 'exitTime',
+// },
 {
   label: '入站时间',
   prop: 'entryTime',
@@ -170,6 +191,7 @@ const carHeader = [{
 {
   label: '车牌号',
   prop: 'plateNo',
+  width: 100
 },
 {
   label: '操作人id',
@@ -178,6 +200,7 @@ const carHeader = [{
 {
   label: '车速(Km/h)',
   prop: 'speed',
+  width: 100
 },
 {
   label: '创建时间',

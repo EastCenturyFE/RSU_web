@@ -105,7 +105,7 @@ const actions = {
       Message({
         type: 'success',
         duration: 1200,
-        message: '登陆成功正在为你跳转',
+        message: '登录成功正在为你跳转',
         customClass: 'message-show-index',
       })
 

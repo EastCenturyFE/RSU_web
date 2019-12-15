@@ -155,7 +155,7 @@ export default {
       if (res.code === 'success') {
         const {ms, pageList} = res.data
 
-        this.ms = ms * 1
+        this.ms = ms * 1 > 700 ? 610 : ms
 
         const xAxisData = pageList.map(val => val.name)
         const data1 = pageList.map(val => val.sum)

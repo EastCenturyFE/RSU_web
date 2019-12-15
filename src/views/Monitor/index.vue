@@ -32,7 +32,7 @@
             <number-roll :number="number1" :add="add" :initData="number1" />
             <!-- <sup>w</sup> -->
           </span>
-          <span class="danwei">万元</span>
+          <span class="danwei">元</span>
 
           <!-- <div class="img-container">
             <img draggable="false" src="/static/Monitor/up.png" alt />
@@ -202,11 +202,13 @@ export default {
       number1: 0,
       number2: 0,
       loading: false,
-      add: 10000,
+      add: 100000,
       jiaoyiechegonglu: [],
       shebeichenggongjiance: [],
       shelaingguiji: [],
-      driving: null
+      driving: null,
+      temr: null,
+      temr2: null
     };
   },
   methods: {
@@ -263,20 +265,21 @@ export default {
 
       const countJiaoyi = await getcountJiaoyi();
       if (countJiaoyi.code === "success") {
-        this.number1 = parseInt((countJiaoyi.data.sums * 1 / 10000));
+        // const count = parseInt((countJiaoyi.data.sums * 1 / 10000000))
+        this.number1 = countJiaoyi.data.sums * 1
       }
     },
     async tableListData () {
       if (this.jiaoyiechegonglu.length >= 16) {
-        this.jiaoyiechegonglu = this.jiaoyiechegonglu.splice(9, this.jiaoyiechegonglu.length)
+        this.jiaoyiechegonglu = this.jiaoyiechegonglu.splice(8, this.jiaoyiechegonglu.length)
       }
 
       if (this.shebeichenggongjiance.length >= 16) {
-        this.shebeichenggongjiance = this.shebeichenggongjiance.splice(9, this.shebeichenggongjiance.length)
+        this.shebeichenggongjiance = this.shebeichenggongjiance.splice(8, this.shebeichenggongjiance.length)
       }
 
       if (this.shelaingguiji.length >= 16) {
-        this.shelaingguiji = this.shelaingguiji.splice(9, this.shelaingguiji.length)
+        this.shelaingguiji = this.shelaingguiji.splice(8, this.shelaingguiji.length)
       }
       const res = await jiaoyiechegonglu()
       const res1 = await shebeichenggongjiance()
@@ -305,14 +308,19 @@ export default {
   mounted() {
     this.initMap();
   },
+  beforeDestroy() {
+    clearInterval(this.temr)
+    clearInterval(this.temr2)
+  },
   created() {
     this.tableListData();
-    setInterval(() => {
+    this.initCarData();
+    this.temr = setInterval(() => {
       this.tableListData();
     }, 6000)
-    setInterval(() => {
+    this.temr2 = setInterval(() => {
       this.initCarData();
-    }, 600)
+    }, 2600)
   }
 };
 </script>
@@ -396,7 +404,7 @@ export default {
     margin: 0 auto;
     margin-top: 15px;
     display: grid;
-    grid-template-columns: repeat(3, 418px);
+    grid-template-columns: repeat(3, 460px);
     grid-template-rows: 90px;
     grid-column-gap: 48px;
 

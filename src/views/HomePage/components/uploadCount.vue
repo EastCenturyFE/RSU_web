@@ -177,7 +177,7 @@ export default {
       let res = await getUploadCount()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        this.ms = ms * 1
+        this.ms = ms * 1 > 700 ? 610 : ms
         let upNunmsSumData = []
         let downNumsSumData = []
         let xAxisData = []

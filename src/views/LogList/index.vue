@@ -38,7 +38,7 @@
               </div>
               <div class="time-right">
                 总条数：
-                <span>500条</span>
+                <span>{{zong}}条</span>
                 &nbsp;
                 查询时间：
                 <span>{{requestTime}}</span>
@@ -82,7 +82,7 @@
               </div>
               <div class="time-right">
                 总条数：
-                <span>500条</span>
+                <span>{{zong}}条</span>
                 &nbsp;
                 查询时间：
                 <span>{{requestTime}}</span>
@@ -128,7 +128,7 @@
               </div>
               <div class="time-right">
                 总条数：
-                <span>500条</span>
+                <span>{{zong}}条</span>
                 &nbsp;
                 查询时间：
                 <span>{{requestTime}}</span>
@@ -226,7 +226,8 @@ export default {
       rsu: { ...tabParams.rsu },
       car: { ...tabParams.car },
       dialogVisible: false,
-      dialogData: {}
+      dialogData: {},
+      zong: 0
     };
   },
   methods: {
@@ -278,7 +279,8 @@ export default {
     async requestLogList(params) {
       let res = await getLogList(params);
       if (res.code === "success") {
-        let { ms, pageList } = res.data;
+        let { ms, pageList, zong } = res.data;
+        this.zong = zong.toLocaleString()
         this.tableData = pageList;
         this.requestTime = ms + "ms";
       }
@@ -286,7 +288,8 @@ export default {
     async requestRsuList(params) {
       let res = await getRsuList(params);
       if (res.code === "success") {
-        let { ms, pageList } = res.data;
+        let { ms, pageList, zong } = res.data;
+        this.zong = zong.toLocaleString()
         this.tableData = pageList;
         this.requestTime = ms + "ms";
       }
@@ -294,7 +297,8 @@ export default {
     async requestCarList(params) {
       let res = await getCarList(params);
       if (res.code === "success") {
-        let { ms, pageList } = res.data;
+        let { ms, pageList, zong } = res.data;
+        this.zong = zong.toLocaleString()
         this.tableData = pageList;
         this.requestTime = ms + "ms";
       }

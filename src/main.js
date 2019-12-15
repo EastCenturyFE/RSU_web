@@ -3,7 +3,7 @@
  * @Author: xiao xin (834529118@qq.com)
  * @Date: 2019-12-14 18:02:49
  * @LastEditors: xiao xin (834529118@qq.com)
- * @LastEditTime: 2019-12-14 20:58:59
+ * @LastEditTime: 2019-12-15 22:42:32
  */
 import Vue from 'vue'
 import App from '@/App.vue'
@@ -19,7 +19,7 @@ import directive from '@/directive'
 import element from './element'
 import 'element-ui/lib/theme-chalk/index.css'
 
-import VueAMap from 'vue-amap'
+// import VueAMap from 'vue-amap'
 // Vue.use(VueAMap)
 Vue.use(element)
 
@@ -40,9 +40,9 @@ Object.entries(directive).forEach(
 window.oncontextmenu = () => false
 
 window.onkeydown = function (e) {
-  // if (e.keyCode === 123) {
-  //   e.preventDefault()
-  // }
+  if (e.keyCode === 123) {
+    e.preventDefault()
+  }
 }
 
 new Vue({

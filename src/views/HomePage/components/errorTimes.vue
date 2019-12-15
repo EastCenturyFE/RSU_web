@@ -160,7 +160,7 @@ export default {
       let res = await getErrorTime()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        this.ms = ms * 1
+        this.ms = ms * 1 > 700 ? 610 : ms
         let docCount = []
         let xAxisData = []
         pageList.forEach(item => {
