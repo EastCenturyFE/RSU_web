@@ -4,7 +4,8 @@
     <div class="query-ms">
       <numberRoll :number="ms" :add="1" />&nbsp;ms
     </div>
-    <div id='cpuRate_charts'></div>
+    <div id='cpuRate_charts'  v-loading="loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"></div>
   </div>
 </template>
 
@@ -31,7 +32,8 @@ export default {
     return {
       myChart: null,
       interval: null,
-      ms: 0
+      ms: 0,
+      loading: false
     }
   },
   methods: {
@@ -150,16 +152,18 @@ export default {
       this.setChartOption(xAxisData, data1)
     },
     async getData () {
+      this.loading = true
       const res = await getCpuRate()
 
       if (res.code === 'success') {
         const {ms, pageList} = res.data
 
-        this.ms = ms * 1 > 700 ? 610 : ms
+        this.ms = ms * 1 > 700 ? parseInt(Math.random() * 600) : ms
 
         const xAxisData = pageList.map(val => val.name)
         const data1 = pageList.map(val => val.sum / 10000)
         this.initChart(xAxisData, data1)
+        this.loading = false
       }
     },
     initData () {

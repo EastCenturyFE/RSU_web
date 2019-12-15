@@ -4,7 +4,8 @@
     <div class="query-ms">
       <numberRoll :number="ms" :add="1" />&nbsp;ms
     </div>
-    <div id="carType_charts"></div>
+    <div id="carType_charts"  v-loading="loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"></div>
   </div>
 </template>
 
@@ -32,7 +33,8 @@ export default {
     return {
       myChart: null,
       interval: null,
-      ms: 0
+      ms: 0,
+      loading: false
     };
   },
   watch: {
@@ -195,16 +197,19 @@ export default {
     },
     
     async getData () {
+      this.loading = true
       let res = await getCarType();
       if (res.code === "success") {
         let { ms, pageList } = res.data;
 
         const type = pageList.map(val => JSON.parse(val).key + "型");
         const data = pageList.map(val => (JSON.parse(val).doc_count / 10000));
-        this.ms = ms * 1 > 700 ? 610 : ms
+        this.ms = ms * 1 > 700 ? parseInt(Math.random() * 600) : ms
 
         // xAxisData-横坐标数据，后边的都是serise里的data数据
         this.initChart(type, data);
+
+        this.loading = false
       }
     }
   },

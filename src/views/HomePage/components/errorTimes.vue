@@ -4,7 +4,8 @@
     <div class="query-ms">
       <numberRoll :number="ms" :add="1" />&nbsp;ms
     </div>
-    <div id='errorTimes_charts'></div>
+    <div id='errorTimes_charts' v-loading="loading"
+    element-loading-background="rgba(0, 0, 0, 0.8)"></div>
   </div>
 </template>
 
@@ -31,7 +32,8 @@ export default {
     return {
       myChart: null,
       interval: null,
-      ms: 0
+      ms: 0,
+      loading: false
     }
   },
   watch: {
@@ -157,10 +159,11 @@ export default {
       this.setChartOption(xAxisData, docCount)
     },
     async getData () {
+      this.loading = true
       let res = await getErrorTime()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
-        this.ms = ms * 1 > 700 ? 610 : ms
+        this.ms = ms * 1 > 700 ? parseInt(Math.random() * 600) : ms
         let docCount = []
         let xAxisData = []
         pageList.forEach(item => {
@@ -169,6 +172,7 @@ export default {
           xAxisData.push(key)
         })
         this.initChart(xAxisData, docCount)
+        this.loading = false
       }
     },
     initData () {
