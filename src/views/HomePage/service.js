@@ -3,7 +3,7 @@
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-13 21:13:31
  * @LastEditors: xiao xin (834529118@qq.com)
- * @LastEditTime: 2019-12-16 01:16:50
+ * @LastEditTime: 2019-12-16 01:39:08
  */
 import request from '@/utils/request'
 
@@ -34,10 +34,10 @@ export async function getUploadCount() {
       return {
         ...data,
         upNunmsSum: {
-          value: (data.upNunmsSum.value / 10000).toFixed(2)
+          value: (data.upNunmsSum.value / 100000).toFixed(2)
         },
         downNumsSum: {
-          value: (data.downNumsSum.value / 10000).toFixed(2)
+          value: (data.downNumsSum.value / 100000).toFixed(2)
         }
       }
     })

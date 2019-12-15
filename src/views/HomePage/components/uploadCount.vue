@@ -93,7 +93,7 @@ export default {
           {
             type: 'value',
             position: 'left',
-            name: '(万次)',
+            name: '(十万次)',
             nameLocation: 'end',
             splitLine: {
               show: true,
