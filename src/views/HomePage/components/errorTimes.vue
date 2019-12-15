@@ -1,6 +1,9 @@
 
 <template>
   <div id="error-times">
+    <div class="query-ms">
+      <numberRoll :number="ms" :add="1" />&nbsp;ms
+    </div>
     <div id='errorTimes_charts'></div>
   </div>
 </template>
@@ -14,14 +17,29 @@ require('echarts/lib/chart/line')
 // 引入提示框和标题组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/legend')
+import numberRoll from '../../Monitor/components/numberRoll'
 
 export default {
   name: 'ErrorTimes',
   components: {
+    numberRoll
+  },
+  props: {
+    delay: Number
   },
   data () {
     return {
       myChart: null,
+      interval: null,
+      ms: 0
+    }
+  },
+  watch: {
+    delay () {
+      if (this.interval) (
+        clearInterval(this.interval)
+      )
+      this.initData()
     }
   },
   methods: {
@@ -132,14 +150,17 @@ export default {
     },
     // 初始化chart
     initChart (xAxisData, docCount) {
-      const container = document.querySelector('#errorTimes_charts')
-      this.myChart = echarts.init(container)
+      if (!this.myChart) {
+        const container = document.querySelector('#errorTimes_charts')
+        this.myChart = echarts.init(container)
+      }
       this.setChartOption(xAxisData, docCount)
     },
     async getData () {
       let res = await getErrorTime()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
+        this.ms = ms * 1
         let docCount = []
         let xAxisData = []
         pageList.forEach(item => {
@@ -150,10 +171,19 @@ export default {
         this.initChart(xAxisData, docCount)
       }
     },
+    initData () {
+      this.interval = setInterval(() => {
+        this.getData()
+      }, this.delay)
+    }
   },
   created () {},
+  beforeDestroy() {
+    clearInterval(this.interval)
+  },
   mounted () {
     this.getData()
+    this.initData()
   },
 }
 </script>
@@ -163,7 +193,14 @@ export default {
   width: 100%;
   height: 100%;
   padding: 10px;
-  >div{
+  position: relative;
+  .query-ms{
+    position: absolute;
+    right: 30px;
+    color: #ccc;
+    display: flex;
+  }
+  >div#errorTimes_charts{
     width: 100%;
     height: 100%;
     overflow: hidden;

@@ -1,13 +1,20 @@
+/*
+ * @Description: 请输入当前文件描述
+ * @Author: xiao xin (834529118@qq.com)
+ * @Date: 2019-12-14 18:02:49
+ * @LastEditors: xiao xin (834529118@qq.com)
+ * @LastEditTime: 2019-12-14 18:05:50
+ */
 // vue.config.js
 const ZipPlugin = require('zip-webpack-plugin')
 const isProduction = process.env.NODE_ENV === 'production'
 const path = require('path')
 
 // 河南东方世纪
-// const target = 'http://192.168.10.30:8888'
+const target = 'http://192.168.10.30:8888'
 
 // 鲲鹏培训
-const target = 'http://192.168.201.11:8888'
+// const target = 'http://192.168.201.11:8888'
 
 // vue.config.js
 module.exports = {

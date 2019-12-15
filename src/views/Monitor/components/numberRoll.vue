@@ -3,7 +3,7 @@
  * @Author: xiao xin (834529118@qq.com)
  * @Date: 2019-12-13 19:46:40
  * @LastEditors: xiao xin (834529118@qq.com)
- * @LastEditTime: 2019-12-13 21:38:11
+ * @LastEditTime: 2019-12-15 20:59:32
  -->
 <template>
   <div>{{amount}}</div>
@@ -14,6 +14,10 @@ export default {
   name: 'numberRoll',
   props: {
     number: Number,
+    add: {
+      type: Number,
+      default: 4
+    }
   },
   data () {
     return {
@@ -30,8 +34,9 @@ export default {
       let that = this
       let numText = startNum
       let golb
+
       function numSlideFun () {
-        numText += 4
+        numText += that.add
         if (numText >= maxNum) {
           numText = maxNum
           cancelAnimationFrame(golb)

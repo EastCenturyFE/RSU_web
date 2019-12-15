@@ -16,40 +16,45 @@
           <div class="block-style"></div>
           <span class="title">系统日志总数</span>
           <span class="value">
-            <number-roll :number="number" />
-            <sup>w</sup>
+            <number-roll :number="number" :add="add" :initData="number" />
+            <!-- <sup>w</sup> -->
           </span>
-          <div class="img-container">
+
+          <span class="danwei">条</span>
+          <!-- <div class="img-container">
             <img draggable="false" src="/static/Monitor/up.png" alt />
-          </div>
+          </div> -->
         </div>
         <div class="car-item">
           <div class="block-style"></div>
           <span class="title">RSU交易额</span>
           <span class="value">
-            <number-roll :number="251.25" />
-            <sup>w</sup>
+            <number-roll :number="number1" :add="add" :initData="number1" />
+            <!-- <sup>w</sup> -->
           </span>
-          <div class="img-container">
+          <span class="danwei">万元</span>
+
+          <!-- <div class="img-container">
             <img draggable="false" src="/static/Monitor/up.png" alt />
-          </div>
+          </div> -->
         </div>
         <div class="car-item">
           <div class="block-style"></div>
           <span class="title">车辆总数</span>
           <span class="value">
-            <number-roll :number="200.25" />
-            <sup>w</sup>
+            <number-roll :number="number2" :add="add" :initData="number2" />
+            <!-- <sup>w</sup> -->
           </span>
-          <div class="img-container">
+          <span class="danwei">辆</span>
+          <!-- <div class="img-container">
             <img draggable="false" src="/static/Monitor/up.png" alt />
-          </div>
+          </div> -->
         </div>
       </div>
 
       <div class="list-container">
         <div class="list-item">
-          <div class="tabs-container">车辆类型分析</div>
+          <div class="tabs-container">车辆轨迹监测</div>
           <div class="table-container">
             <div class="table-header">
               <table>
@@ -60,25 +65,25 @@
                 </colgroup>
                 <thead>
                   <tr>
-                    <th>路段名称</th>
-                    <th>类型</th>
-                    <th>数量</th>
+                    <th>路段</th>
+                    <th>车牌号</th>
+                    <th>车型</th>
                   </tr>
                 </thead>
               </table>
             </div>
             <div class="table-content">
-              <table :class="[animation ? `table-animation` : '']">
+              <table :class="{'table-animation': shelaingguiji.length >= 16}">
                 <colgroup>
                   <col style="width: 150px; min-width: 150px;" />
                   <col style="width: 150px; min-width: 150px;" />
                   <col style="width: 150px; min-width: 150px;" />
                 </colgroup>
                 <tbody>
-                  <tr v-for="(item, i) in tableDta" :key="i">
+                  <tr @click="handleClick(item)" v-for="(item, i) in shelaingguiji" :key="i">
                     <td>{{item.name}}</td>
-                    <td>{{item.aa}}</td>
-                    <td>{{item.type}}</td>
+                    <td>{{item.chepai}}</td>
+                    <td>{{item.chexing}}</td>
                   </tr>
                 </tbody>
               </table>
@@ -86,40 +91,44 @@
           </div>
         </div>
         <div class="list-item">
-          <div class="tabs-container">车辆类型分析</div>
+          <div class="tabs-container">设备成功率监测</div>
           <div class="table-container">
             <div class="table-header">
               <table>
                 <colgroup>
+                  <col style="width: 150px; min-width: 100px;" />
                   <col style="width: 100px; min-width: 100px;" />
-                  <col style="width: 100px; min-width: 100px;" />
-                  <col style="width: 150px; min-width: 150px;" />
+                  <col style="width: 100px; min-width: 150px;" />
+                  <col style="width: 100px; min-width: 150px;" />
                 </colgroup>
                 <thead>
                   <tr>
-                    <th>路段名称</th>
-                    <th>类型</th>
-                    <th>数量</th>
+                    <th>门架编号</th>
+                    <th>设备品牌</th>
+                    <th>设备IP</th>
+                    <th>成功率</th>
                   </tr>
                 </thead>
               </table>
             </div>
             <div class="table-content">
-              <table :class="[animation ? `table-animation` : '']">
+              <table :class="{'table-animation': shebeichenggongjiance.length >= 16}">
                 <colgroup>
                   <col style="width: 100px; min-width: 100px;" />
                   <col style="width: 100px; min-width: 100px;" />
                   <col style="width: 150px; min-width: 150px;" />
+                  <col style="width: 150px; min-width: 150px;" />
                 </colgroup>
                 <tbody>
                   <tr
-                    v-for="(item, i) in tableDta"
-                    :class="[animation ? `li-animation-${i}` : '']"
+                    v-for="(item, i) in shebeichenggongjiance"
+                    :class="{'rsu-red': item.chenggong < 95}"
                     :key="i"
                   >
                     <td>{{item.name}}</td>
-                    <td>{{item.aa}}</td>
-                    <td>{{item.type}}</td>
+                    <td>{{item.leixing}}</td>
+                    <td>{{item.ip}}</td>
+                    <td>{{item.chenggong}} %</td>
                   </tr>
                 </tbody>
               </table>
@@ -128,47 +137,45 @@
         </div>
       </div>
 
-      <div class="btn-container" style="position: fixed;
-  top: 500px;
-  left: 50%;">
-        <el-button @click="handleClick" type="primary">模拟动画按钮</el-button>
-      </div>
-
       <div class="rsu-container">
-        <div class="tabs-container">RSU交易额分析</div>
+        <div class="tabs-container">RSU交易成功率监测</div>
         <div class="table-container">
           <div class="table-header">
             <table>
               <colgroup>
+                <col style="width: 170px; min-width: 150px;" />
                 <col style="width: 150px; min-width: 150px;" />
                 <col style="width: 150px; min-width: 150px;" />
                 <col style="width: 150px; min-width: 150px;" />
               </colgroup>
               <thead>
                 <tr>
-                  <th>路段名称</th>
-                  <th>类型</th>
-                  <th>数量</th>
+                  <th>门架编号</th>
+                  <th>RSU类型</th>
+                  <th>RSU_IP</th>
+                  <th>成功率</th>
                 </tr>
               </thead>
             </table>
           </div>
           <div class="table-content">
-            <table :class="[animation ? `table-animation` : '']">
+            <table :class="{'table-animation': jiaoyiechegonglu.length >= 16}">
               <colgroup>
+                <col style="width: 150px; min-width: 150px;" />
                 <col style="width: 150px; min-width: 150px;" />
                 <col style="width: 150px; min-width: 150px;" />
                 <col style="width: 150px; min-width: 150px;" />
               </colgroup>
               <tbody>
                 <tr
-                  v-for="(item, i) in tableDta"
-                  :class="[animation ? `li-animation-${i}` : '']"
+                  v-for="(item, i) in jiaoyiechegonglu"
                   :key="i"
+                  :class="{'rsu-red': item.chengognlu < 95}"
                 >
                   <td>{{item.name}}</td>
-                  <td>{{item.aa}}</td>
-                  <td>{{item.type}}</td>
+                  <td>{{item.leix}}</td>
+                  <td>{{item.ip}}</td>
+                  <td>{{item.chengognlu}} %</td>
                 </tr>
               </tbody>
             </table>
@@ -180,191 +187,141 @@
 </template>
 
 <script>
-import { AMapManager, lazyAMapApiLoaderInstance } from 'vue-amap';
-import NumberRoll from './components/numberRoll';
+import NumberRoll from "./components/numberRoll";
 
-import { getCountLog } from './service.js';
-
-const moniData = [
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-  {
-    name: 'moniData_name',
-    aa: 'moniData_aa',
-    type: 'moniData_type',
-  },
-]
+import { getCountLog, getcountCheLinag, getcountJiaoyi, jiaoyiechegonglu, shebeichenggongjiance, shelaingguiji } from "./service.js";
 
 export default {
-  name: 'MyTask',
+  name: "MyTask",
   components: {
-    NumberRoll,
+    NumberRoll
   },
-  data () {
+  data() {
     return {
-      map: null,
-      AMapManager,
-      zoom: 12,
-      center: [121.59996, 31.197646],
-      // center: [116.418261, 39.921984],
-      value1: 12,
-      tableDta: [
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-        {
-          name: '223',
-          aa: '13',
-          type: 'ahah',
-        },
-      ],
       number: 0,
+      number1: 0,
+      number2: 0,
       loading: false,
-    }
-  },
-  computed: {
-    animation () {
-      return this.tableDta.length > 8
-    },
+      add: 10000,
+      jiaoyiechegonglu: [],
+      shebeichenggongjiance: [],
+      shelaingguiji: [],
+      driving: null
+    };
   },
   methods: {
-    handleClick () {
-      // if (this.animation) {
-      //   return
-      // }
-      // this.tableDta.push(...moniData)
-      // setTimeout(() => {
-      //   this.tableDta = [...this.tableDta.slice(9, this.tableDta.length)]
-      // }, 3000)
-      this.number = 1200
+    initMap() {
+      this.loading = true;
+      /* eslint-disable */
+      const map = (this.map = new AMap.Map("amapContainer", {
+        zoom: 11.8,
+        zooms: [10, 17],
+        center: [113.658097, 34.745795],
+        mapStyle: `amap://styles/${process.env.VUE_APP_MAP_STYLE}`,
+        viewMode: "3D",
+        pitch: 50,
+        rotation: 25,
+        skyColor: "red",
+        showBuildingBlock: false
+      }));
+
+      map.on("complete", () => {
+        this.loading = false;
+      });
+
+      var path1 = [
+        [75.757904, 38.118117],
+        [97.375719, 24.598057],
+        [117.375719, 38.118117]
+      ];
+
+
+      // let OverlayGroup = new AMap.OverlayGroup([Polyline]);
+
+      this.driving = new AMap.Driving({
+        policy: AMap.DrivingPolicy.LEAST_TIME,
+        map,
+        showTraffic: false,
+        hideMarkers: true,
+        autoFitView: true
+      });
+
+      // this.map.add(OverlayGroup);
+      /* eslint-enable */
     },
-    initMap () {
-      lazyAMapApiLoaderInstance.load().then(() => {
-        this.loading = true
-        /* eslint-disable */
-        this.map = new AMap.Map("amapContainer", {
-          zoom: 11.8,
-          // zooms: [10, 17],
-          enter: [114.425081, 34.554875],
-          mapStyle: `amap://styles/${process.env.VUE_APP_MAP_STYLE}`,
-          viewMode: "3D",
-          pitch: 50,
-          rotation: 25,
-          skyColor: "red",
-          showBuildingBlock: false
-        });
+    async initCarData() {
+      const countLog = await getCountLog();
+      if (countLog.code === "success") {
+        this.number = countLog.data.aDouble * 1;
+      }
 
-        this.map.on("complete", () => {
-          this.loading = false;
-        });
+      const cheLinag = await getcountCheLinag();
 
-        var path1 = [
-          [75.757904, 38.118117],
-          [97.375719, 24.598057],
-          [117.375719, 38.118117]
-        ];
+      if (cheLinag.code === "success") {
+        this.number2 = cheLinag.data.aDouble * 1;
+      }
 
-        const Polyline = new AMap.Polyline({
-          path: path1, // 设置线覆盖物路径
-          showDir: true,
-          strokeColor: "#ffffff", // 线颜色
-          strokeWeight: 10
-        });
-
-        const OverlayGroup = new AMap.OverlayGroup([Polyline]);
-
-        this.map.add(OverlayGroup);
-        /* eslint-enable */
-      })
-    },
-    async initCarData () {
-      const { code, data } = await getCountLog()
-      if (code === 'success') {
-        this.number = (data.aDouble * 1) / 10000
+      const countJiaoyi = await getcountJiaoyi();
+      if (countJiaoyi.code === "success") {
+        this.number1 = parseInt((countJiaoyi.data.sums * 1 / 10000));
       }
     },
+    async tableListData () {
+      if (this.jiaoyiechegonglu.length >= 16) {
+        this.jiaoyiechegonglu = this.jiaoyiechegonglu.splice(9, this.jiaoyiechegonglu.length)
+      }
+
+      if (this.shebeichenggongjiance.length >= 16) {
+        this.shebeichenggongjiance = this.shebeichenggongjiance.splice(9, this.shebeichenggongjiance.length)
+      }
+
+      if (this.shelaingguiji.length >= 16) {
+        this.shelaingguiji = this.shelaingguiji.splice(9, this.shelaingguiji.length)
+      }
+      const res = await jiaoyiechegonglu()
+      const res1 = await shebeichenggongjiance()
+      const res2 = await shelaingguiji()
+      if (res.code === 'success') {
+        this.jiaoyiechegonglu.push(...res.data.pageList)
+      }
+
+      if (res1.code === 'success') {
+        this.shebeichenggongjiance.push(...res1.data.pageList)
+      }
+
+      if (res2.code === 'success') {
+        this.shelaingguiji.push(...res2.data.pageList)
+      }
+    },
+    handleClick (item) {
+      const start = item.start.split(',')
+      const end = item.end.split(',')
+      this.driving.search(
+        new AMap.LngLat(start[0], start[1]),
+        new AMap.LngLat(end[0], end[1])
+      )
+    }
   },
-  async created () {
-    this.initMap()
-    this.initCarData()
+  mounted() {
+    this.initMap();
   },
-}
+  created() {
+    this.tableListData();
+    setInterval(() => {
+      this.tableListData();
+    }, 6000)
+    setInterval(() => {
+      this.initCarData();
+    }, 600)
+  }
+};
 </script>
 
 <style lang="less" scoped>
 #monitor {
   // min-height: calc(100vh - 55px);
-  height: 920px;
+  min-height: 920px;
+  height: calc(100vh - 55px);
   // height: 100%;
   .amap-demo {
     height: auto;
@@ -390,6 +347,10 @@ export default {
       .table-animation {
         transition: all 1.5s;
         margin-top: -328px;
+      }
+
+      .rsu-red{
+        color: red;
       }
     }
     tr {
@@ -505,6 +466,11 @@ export default {
         }
       }
 
+      .danwei{
+        margin-left: 10px;
+        font-size: 24px;
+      }
+
       .img-container {
         margin-left: 40px;
         img {
@@ -540,7 +506,7 @@ export default {
   }
 
   .rsu-container {
-    height: 350px;
+    min-height: 350px;
     // background: red;
     .tabs-container {
       .list-tite;
@@ -548,7 +514,7 @@ export default {
 
     .table-container {
       pointer-events: auto;
-      height: 326px;
+      height: 370px;
       width: 100%;
       overflow: hidden;
 

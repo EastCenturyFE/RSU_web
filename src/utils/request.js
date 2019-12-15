@@ -101,12 +101,12 @@ function sessionTimeout (res) {
  * @param  {Error}                    错误对象
  */
 function catchError (e) {
-  Message({
-    type: 'warning',
-    duration: 1500,
-    message: waringMsg,
-    customClass: 'message-show-index',
-  })
+  // Message({
+  //   type: 'warning',
+  //   duration: 1500,
+  //   message: waringMsg,
+  //   customClass: 'message-show-index',
+  // })
 
   return Promise.reject(new Error(waringMsg))
 }

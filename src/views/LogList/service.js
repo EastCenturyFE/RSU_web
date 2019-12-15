@@ -2,10 +2,11 @@
  * @Description:
  * @Author: YOYO 792611446@qq.com
  * @Date: 2019-12-13 16:35:38
- * @LastEditors: YOYO 792611446@qq.com
- * @LastEditTime: 2019-12-13 20:01:32
+ * @LastEditors: xiao xin (834529118@qq.com)
+ * @LastEditTime: 2019-12-15 16:56:52
  */
 import request from '@/utils/request'
+import {formatDateTime} from '../../utils/objectUtil'
 
 // 请求系统日志列表
 export async function getLogList (params) {
@@ -19,7 +20,8 @@ export async function getRsuList (params) {
 
 // 车辆日志列表
 export async function getCarList (params) {
-  return request.get('/etc/searchCarLog', params)
+  const res = await request.get('/etc/searchCarLog', params)
+  return res
 }
 
 // 日志详情

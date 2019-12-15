@@ -1,6 +1,9 @@
 
 <template>
   <div id="upload-count">
+    <div class="query-ms">
+      <numberRoll :number="ms" :add="1" />&nbsp;ms
+    </div>
     <div id='uploadCount_charts'></div>
   </div>
 </template>
@@ -15,13 +18,29 @@ require('echarts/lib/chart/line')
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/legend')
 
+import numberRoll from '../../Monitor/components/numberRoll'
+
 export default {
   name: 'UploadCount',
   components: {
+    numberRoll
+  },
+  props: {
+    delay: Number
   },
   data () {
     return {
       myChart: null,
+      interval: null,
+      ms: 0
+    }
+  },
+  watch: {
+    delay () {
+      if (this.interval) (
+        clearInterval(this.interval)
+      )
+      this.initData()
     }
   },
   methods: {
@@ -148,14 +167,17 @@ export default {
     },
     // 初始化chart
     initChart (xAxisData, upNunmsSumData, downNumsSumData) {
-      const container = document.querySelector('#uploadCount_charts')
-      this.myChart = echarts.init(container)
+      if (!this.myChart) {
+        const container = document.querySelector('#uploadCount_charts')
+        this.myChart = echarts.init(container)
+      }
       this.setChartOption(xAxisData, upNunmsSumData, downNumsSumData)
     },
     async getData () {
       let res = await getUploadCount()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
+        this.ms = ms * 1
         let upNunmsSumData = []
         let downNumsSumData = []
         let xAxisData = []
@@ -168,10 +190,19 @@ export default {
         this.initChart(xAxisData, upNunmsSumData, downNumsSumData)
       }
     },
+    initData () {
+      this.interval = setInterval(() => {
+        this.getData()
+      }, this.delay)
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
   },
   created () {},
   mounted () {
     this.getData()
+    this.initData()
   },
 }
 </script>
@@ -181,7 +212,14 @@ export default {
   width: 100%;
   height: 100%;
   padding: 10px;
-  >div{
+  position: relative;
+  .query-ms{
+    position: absolute;
+    right: 30px;
+    color: #ccc;
+    display: flex;
+  }
+  >div#uploadCount_charts{
     width: 100%;
     height: 100%;
     overflow: hidden;

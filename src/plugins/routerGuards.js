@@ -1,8 +1,15 @@
-import { Loading, Message } from 'element-ui'
+import {
+  Loading,
+  Message
+} from 'element-ui'
 
 import store from '@/store'
 import router from '@/router'
-import { devMode, pages, productInfo } from '@/config'
+import {
+  devMode,
+  pages,
+  productInfo
+} from '@/config'
 
 router.beforeEach(getBeforeEachCallback())
 
@@ -11,16 +18,18 @@ router.afterEach((to, from) => {
 })
 
 // 通过环境应用不同的前置守卫
-function getBeforeEachCallback () {
+function getBeforeEachCallback() {
   const isProduction = !devMode || process.env.NODE_ENV === 'production'
 
   return isProduction ? beforeEachProductionCallback : beforeEachDevelopmentCallback
 }
 
 // 生产环境前置守卫
-async function beforeEachProductionCallback (to, from, next) {
+async function beforeEachProductionCallback(to, from, next) {
   // 只要 matched 数组中只要有一个 authority 不为false，则为校验路由
-  const hasCheck = to.matched.find(({ meta }) => meta && meta.authority)
+  const hasCheck = to.matched.find(({
+    meta
+  }) => meta && meta.authority)
 
   // 根据路由状态判断是否加载数据
   await loadUserData(hasCheck)
@@ -47,7 +56,7 @@ async function beforeEachProductionCallback (to, from, next) {
 }
 
 // 开发环境前置守卫
-function beforeEachDevelopmentCallback (to, from, next) {
+function beforeEachDevelopmentCallback(to, from, next) {
   const meta = to.matched[to.matched.length - 1].meta
 
   if (meta.hasRoute()) {
@@ -65,7 +74,7 @@ function beforeEachDevelopmentCallback (to, from, next) {
 }
 
 // 根据是否是校验路由去决定是否去加载用户信息
-async function loadUserData (hasCheck) {
+async function loadUserData(hasCheck) {
   /**
    * 无用户信息时显示loading,并加载用户信息
    * 注意：此处是用户新进入页面或者刷新页面
@@ -88,11 +97,18 @@ async function loadUserData (hasCheck) {
 }
 
 // 设置title
-function setTitle (to) {
-  const { meta: { title } } =
-    [...to.matched].reverse().find(item => item.meta.title) || { meta: {} }
+function setTitle(to) {
+  const {
+    meta: {
+      title
+    }
+  } = [...to.matched].reverse().find(item => item.meta.title) || {
+    meta: {}
+  }
 
-  const { systemName } = productInfo
+  const {
+    systemName
+  } = productInfo
 
   document.title = title ? `${systemName}-${title}` : systemName
 }

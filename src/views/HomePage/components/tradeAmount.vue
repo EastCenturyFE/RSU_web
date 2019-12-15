@@ -1,6 +1,9 @@
 
 <template>
   <div id="trade-amount">
+    <div class="query-ms">
+      <numberRoll :number="ms" :add="1" />&nbsp;ms
+    </div>
     <div id='tradeAmount_charts'></div>
   </div>
 </template>
@@ -16,13 +19,29 @@ require('echarts/lib/chart/line')
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/legend')
 
+import numberRoll from '../../Monitor/components/numberRoll'
+
 export default {
   name: 'TradeAmount',
   components: {
+    numberRoll
+  },
+  props: {
+    delay: Number
   },
   data () {
     return {
       myChart: null,
+      interval: null,
+      ms: 0
+    }
+  },
+  watch: {
+    delay () {
+      if (this.interval) (
+        clearInterval(this.interval)
+      )
+      this.initData()
     }
   },
   methods: {
@@ -73,7 +92,7 @@ export default {
           {
             type: 'value',
             position: 'left',
-            name: '(次)',
+            name: '(元)',
             nameLocation: 'end',
             splitLine: {
               show: true,
@@ -134,14 +153,17 @@ export default {
     },
     // 初始化chart
     initChart (xAxisData, reqTotalSumData) {
-      const container = document.querySelector('#tradeAmount_charts')
-      this.myChart = echarts.init(container)
+      if (!this.myChart) {
+        const container = document.querySelector('#tradeAmount_charts')
+        this.myChart = echarts.init(container)
+      }
       this.setChartOption(xAxisData, reqTotalSumData)
     },
     async getData () {
       let res = await getTradeAmount()
       if (res.code === 'success') {
         let { ms, pageList } = res.data
+        this.ms = ms * 1
         let reqTotalSumData = []
         let xAxisData = []
         pageList.forEach(item => {
@@ -152,10 +174,19 @@ export default {
         this.initChart(xAxisData, reqTotalSumData)
       }
     },
+    initData () {
+      this.interval = setInterval(() => {
+        this.getData()
+      }, this.delay)
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
   },
   created () {},
   mounted () {
     this.getData()
+    this.initData()
   },
 }
 </script>
@@ -165,7 +196,14 @@ export default {
   width: 100%;
   height: 100%;
   padding: 10px;
-  >div{
+  position: relative;
+  .query-ms{
+    position: absolute;
+    right: 30px;
+    color: #ccc;
+    display: flex;
+  }
+  >div#tradeAmount_charts{
     width: 100%;
     height: 100%;
     overflow: hidden;

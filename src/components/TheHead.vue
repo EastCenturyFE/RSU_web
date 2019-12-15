@@ -8,13 +8,16 @@
         :class="index === tabIndex ? 'active' : ''"
       >{{ item.name }}</li>
     </ul>
-    <h1>日志监测系统{{roles}}</h1>
+    <h1>高速公路收费系统日志监控</h1>
     <div class="head-right">
       <el-dropdown @command="handleLogout">
         <span class="el-dropdown-link">
-          <el-badge :value="99" :hidden="false" :max="99" class="badge-content">
+          <!-- <el-badge :value="99" :hidden="false" :max="99" class="badge-content">
             <img src="/static/img/layout/info.png" />
-          </el-badge>
+          </el-badge>-->
+          <!-- 下拉菜单 -->
+          {{roles}}
+          <i class="el-icon-arrow-down"></i>
         </span>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item command="logout">登 出</el-dropdown-item>
@@ -25,47 +28,45 @@
 </template>
 
 <script>
-import { mapActions, mapState } from 'vuex';
+import { mapActions, mapState } from "vuex";
 
 const tableArray = [
-  { name: '首页', path: '/home', roles: ['admin', 'hndfsj'] },
-  { name: '检测模式', path: '/monitor', roles: ['admin', 'hndfsj'] },
-  { name: '业务模式', path: '/index', roles: ['admin'] },
-]
+  { name: "首页", path: "/home", roles: ["admin", "hndfsj"] },
+  { name: "监测模式", path: "/monitor", roles: ["admin", "hndfsj"] },
+  { name: "日志报表", path: "/index", roles: ["admin"] },
+];
 
 export default {
-  name: 'TheHead',
+  name: "TheHead",
   components: {},
-  data () {
+  data() {
     return {
       tablist: [],
-      tabIndex: 0,
-    }
+      tabIndex: 0
+    };
   },
   computed: {
-    ...mapState({ roles: 'roles' }),
+    ...mapState({ roles: "roles" })
   },
   methods: {
-    ...mapActions(['pageLogout']),
-    handleClick (path, index) {
-      this.tabIndex = index
-      this.$router.push(path)
+    ...mapActions(["pageLogout"]),
+    handleClick(path, index) {
+      this.tabIndex = index;
+      this.$router.push(path);
     },
-    handleLogout (command) {
-      this.pageLogout()
+    handleLogout(command) {
+      this.pageLogout();
     },
-    initTab () {
-      this.tablist = tableArray.filter(val => val.roles.includes(this.roles))
+    initTab() {
+      this.tablist = tableArray.filter(val => val.roles.includes(this.roles));
     },
   },
-  created () {
-    this.tabIndex = this.tablist.findIndex(
-      val => val.path === this.$route.path
-    )
+  created() {
+    this.tabIndex = tableArray.findIndex(val => val.path === this.$route.path);
 
-    this.initTab()
-  },
-}
+    this.initTab();
+  }
+};
 </script>
 
 <style lang="less">
@@ -124,6 +125,11 @@ export default {
     }
     .el-badge__content.is-fixed {
       top: 10px;
+    }
+    .el-dropdown-link {
+      font-size: 16px;
+      color: rgba(255, 255, 255, 0.8);
+      cursor: pointer;
     }
   }
 }

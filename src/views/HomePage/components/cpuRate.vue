@@ -1,6 +1,9 @@
 
 <template>
   <div id="cpu-rate">
+    <div class="query-ms">
+      <numberRoll :number="ms" :add="1" />&nbsp;ms
+    </div>
     <div id='cpuRate_charts'></div>
   </div>
 </template>
@@ -14,14 +17,21 @@ require('echarts/lib/chart/line')
 // 引入提示框和标题组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/legend')
+import numberRoll from '../../Monitor/components/numberRoll'
 
 export default {
   name: 'UploadCount',
   components: {
+    numberRoll
+  },
+  props: {
+    delay: Number
   },
   data () {
     return {
       myChart: null,
+      interval: null,
+      ms: 0
     }
   },
   methods: {
@@ -34,7 +44,7 @@ export default {
         },
         tooltip: {},
         xAxis: {
-          name: '时间',
+          name: '地址',
           nameTextStyle: {
             color: '#D9DBE2',
             fontSize: 12,
@@ -72,7 +82,7 @@ export default {
           {
             type: 'value',
             position: 'left',
-            name: '(%)',
+            name: '辆',
             nameLocation: 'end',
             splitLine: {
               show: true,
@@ -105,14 +115,14 @@ export default {
         legend: {
           top: 10,
           left: 'center',
-          data: ['cpu占有率'],
+          data: ['城市车辆数量'],
           textStyle: {
             color: '#fff',
           },
         },
         series: [
           {
-            name: 'cpu占有率',
+            name: '城市车辆数量',
             type: 'line',
             smooth: true,
             symbol: 'circle',
@@ -133,26 +143,37 @@ export default {
     },
     // 初始化chart
     initChart (xAxisData, data1) {
-      const container = document.querySelector('#cpuRate_charts')
-      this.myChart = echarts.init(container)
+      if (!this.myChart) {
+        const container = document.querySelector('#cpuRate_charts')
+        this.myChart = echarts.init(container)
+      }
       this.setChartOption(xAxisData, data1)
     },
     async getData () {
-      // let res = await getCarType()
-      // if (res.code === 'success') {
-      //   let { ms, pageList } = res.data
-      //   console.log(ms, pageList)
+      const res = await getCpuRate()
 
-      //   // xAxisData-横坐标数据，后边的都是serise里的data数据
-      //   this.initChart(xAxisData, upNunmsSumData, downNumsSumData)
-      // }
-      let xAxisData = ['12:00', '12:10', '12:20', '12:30', '12:40']
-      let data1 = [40, 60, 40, 90, 98]
-      this.initChart(xAxisData, data1)
+      if (res.code === 'success') {
+        const {ms, pageList} = res.data
+
+        this.ms = ms * 1
+
+        const xAxisData = pageList.map(val => val.name)
+        const data1 = pageList.map(val => val.sum)
+        this.initChart(xAxisData, data1)
+      }
     },
+    initData () {
+      this.interval = setInterval(() => {
+        this.getData()
+      }, this.delay)
+    }
+  },
+  beforeDestroy() {
+    clearInterval(this.interval)
   },
   created () {},
   mounted () {
+    this.initData()
     this.getData()
   },
 }
@@ -163,7 +184,14 @@ export default {
   width: 100%;
   height: 100%;
   padding: 10px;
-  >div{
+  position: relative;
+  .query-ms{
+    position: absolute;
+    right: 30px;
+    color: #ccc;
+    display: flex;
+  }
+  >div#cpuRate_charts{
     width: 100%;
     height: 100%;
     overflow: hidden;
